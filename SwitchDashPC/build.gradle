@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':EnginePC')
     implementation project(path: ':Logic')
+    implementation project(path: ':Engine')
 }
 
 sourceCompatibility = "7"

@@ -1,29 +1,28 @@
 package es.ucm.gdv.switchdashpc;
 
 import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.*; //Importa todo lo que hay dentro de este paquete
 
-public class SwitchDashPC extends JFrame{ // quitar jframe
+import es.ucm.gdv.enginePC.PCGame;
+
+
+public class SwitchDashPC extends JFrame{
+
+    public void init(int windowWidth, int windowHeight){
+
+        setSize(windowWidth,windowHeight);
+        // Ojo esto es necesario para que se cierre la aplicacion una vez cerrada la ventana.
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIgnoreRepaint(true);
+        setVisible(true);
+        game = new PCGame(this);
+
+        game.run();
+    }
     public static void main(String [] args)
     {
         SwitchDashPC ventana = new SwitchDashPC();
 
-        ventana.init();
-
-        ventana.setVisible(true);
+        ventana.init(400,400);
     }
-    public void init(){
-        setSize(400,400);
-        // Ojo esto es necesario para que se cierre la aplicacion una vez cerrada la ventana.
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //BOTONES
-       /* JButton boton;
-        // Texto boton
-        boton = new JButton("Pulsame");
-          add(boton);
-        boton.addActionListener(new MiActionListener());*/
-
-    }
+    private PCGame game;
 }
