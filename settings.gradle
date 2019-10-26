@@ -1,1 +1,1 @@
-include ':SwitchDashAndroid', ':SwitchDashPC', ':Engine'
+include ':SwitchDashAndroid', ':SwitchDashPC', ':Engine', ':Logic', ':EnginePC', ':EngineAndroid'
