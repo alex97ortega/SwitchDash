@@ -56,7 +56,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         _graphics.fillRect(0, 0, getWidth(), getHeight());
     }
     @Override
-    public void drawImage(Image img, Rect scr, Rect clip) {
+    public void drawImage(Image img, Rect scr, Rect clip, int alpha) {
         BufferedImage tmp = ((PCImage)(img)).getImg();
 
         if (tmp != null) {

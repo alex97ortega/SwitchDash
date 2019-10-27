@@ -1,10 +1,49 @@
 package es.ucm.gdv.enginePC;
 
+import java.applet.Applet;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PCInput implements es.ucm.gdv.engine.Input {
+import javax.swing.JFrame;
+
+public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseListener {
+    PCInput(JFrame jFrame){
+        events  = new ArrayList<>();
+        jFrame.addMouseListener(this);
+    }
     @Override
     public List<TouchEvent> getTouchEvents() {
-        return null;
+        return events;
     }
+    @Override
+    public void  deleteEvents(){
+        events.clear();
+    }
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        events.add(new TouchEvent(TouchEvent.Type.Pressed, mouseEvent.getX(), mouseEvent.getY()));
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+        events.add(new TouchEvent(TouchEvent.Type.Released, mouseEvent.getX(), mouseEvent.getY()));
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
+
+    private ArrayList<TouchEvent> events;
 }

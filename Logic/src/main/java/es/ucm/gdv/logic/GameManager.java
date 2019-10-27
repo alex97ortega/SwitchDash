@@ -10,7 +10,6 @@ public class GameManager {
     }
     public void init(String[] imagePaths)
     {
-        screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight());
         initSprites(imagePaths);
         _game.pushGameState(new StartGameState(_game, this));
     }
@@ -21,12 +20,10 @@ public class GameManager {
             images[i] = _game.getGraphics().newImage(imagePaths[i]);
         }
     }
-    public Screen getScreen(){return screen;}
     public Image getImage(Images img){return images[img.ordinal()];}
     public int getColor(BackgroundColor color){return color.ordinal();}
 
     private Game _game;
-    private Screen screen;
     private Image[] images;
 
 

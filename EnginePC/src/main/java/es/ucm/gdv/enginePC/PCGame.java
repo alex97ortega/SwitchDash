@@ -12,7 +12,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
 
     public PCGame(JFrame jFrame){
         _graphics = new PCGraphics(jFrame);
-        _input = new PCInput();
+        _input = new PCInput(jFrame);
 
         jFrame.setIgnoreRepaint(true);
         jFrame.setVisible(true);
@@ -42,7 +42,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            //switchDashPC.update(elapsedTime);
+
             getGameState().update(elapsedTime);
             // Pintamos el frame con el BufferStrategy
             do {
