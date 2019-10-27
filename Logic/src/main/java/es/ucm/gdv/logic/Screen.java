@@ -19,13 +19,13 @@ public class Screen {
         if(posYarrows >= _height)
             posYarrows = 0;
     }
-    public void render(Graphics graphics, GameManager gm){
+    public void render(Graphics graphics, GameManager gm, GameManager.BackgroundColor color ){
         // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
         //  de la pantalla mientras se juega
         _width = graphics.getWidth();
         _height = graphics.getHeight();
 
-        drawFondo(graphics, gm, GameManager.BackgroundColor.GREEN);
+        drawFondo(graphics, gm, color);
         drawArrows(graphics,gm);
     }
 
@@ -51,11 +51,12 @@ public class Screen {
 
         graphics.drawImage(img,
                 new Rect(x,posYarrows,0,0),
-                new Rect(0,img.getHeight()/2,img.getWidth(),img.getHeight()/2),255);
+                new Rect(0,0,img.getWidth(),img.getHeight()),255);
 
         graphics.drawImage(img,
                 new Rect(x,posYarrows -_height,0,0),
-                new Rect(0,img.getHeight()/2,img.getWidth(),img.getHeight()/2),255);
+                new Rect(0,0,img.getWidth(),img.getHeight()),255);
+
     }
     public int getWidth() {
         return _width;

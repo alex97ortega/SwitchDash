@@ -1,7 +1,9 @@
 package es.ucm.gdv.logic;
 
 import es.ucm.gdv.engine.Game;
+import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Input;
+import es.ucm.gdv.engine.Rect;
 
 // comportamientos que sean comunes a todos los estados de juego
 public class BaseGameState implements es.ucm.gdv.engine.GameState {
@@ -27,12 +29,13 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
     @Override
     public void render() {
         _game.getGraphics().clear(0);
-        screen.render(_game.getGraphics(),_gm);
+        screen.render(_game.getGraphics(),_gm, GameManager.BackgroundColor.GREEN);
     }
     @Override
     public void onPress(int x, int y){
 
     }
+
     protected Game _game;
     protected GameManager _gm;
     protected Screen screen;

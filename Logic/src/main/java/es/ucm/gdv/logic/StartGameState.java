@@ -8,6 +8,9 @@ public class StartGameState extends BaseGameState {
     StartGameState(Game game, GameManager gm){
         super(game,gm);
         screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight());
+        buttons = new Button[2];
+        buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
+        buttons[1] = new Button(_game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
     }
 
     @Override
@@ -25,10 +28,36 @@ public class StartGameState extends BaseGameState {
         _game.getGraphics().drawImage(logo,
                 new Rect(x,50,0,0),
                 new Rect(0,0,logo.getWidth(),logo.getHeight()), 255);
+
+        for (Button b:
+             buttons) {
+            b.render(_game);
+        }
     }
 
     @Override
     public void onPress(int x, int y) {
-        System.out.print(_game.getInput().getTouchEvents());
+        for (Button b:
+                buttons) {
+            if(b.inside(x,y)){
+                buttonClicked(b.getType());
+                return;
+            }
+        }
+        // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
+        _game.changeGameState(new GamePlayState(_game,_gm));
     }
+
+    private void buttonClicked(GameManager.Buttons type){
+        switch (type){
+            case SOUND_ON:
+                break;
+            case HELP:
+                _game.changeGameState(new HelpGameState(_game,_gm));
+                break;
+            default:
+                break;
+        }
+    }
+    private Button[] buttons;
 }

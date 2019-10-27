@@ -21,7 +21,6 @@ public class GameManager {
         }
     }
     public Image getImage(Images img){return images[img.ordinal()];}
-    public int getColor(BackgroundColor color){return color.ordinal();}
 
     private Game _game;
     private Image[] images;
@@ -54,5 +53,18 @@ public class GameManager {
         RED,
         BEIGE,
         TOTAL_COLORS
+    }
+    public enum Buttons{
+        HELP,
+        CANCEL,
+        SOUND_ON,
+        SOUND_OFF,
+        HOME,
+        STAR,
+        DOLLAR,
+        SETTINGS,
+        EXIT,
+        SHOP,
+        TOTAL_BUTTONS
     }
 }
