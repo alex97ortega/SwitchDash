@@ -75,10 +75,11 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     }
 
     public BufferStrategy getBuffer(){return _bufferStrategy;}
+    public void dispose(){
+        _bufferStrategy.getDrawGraphics().dispose();
+    }
 
     private BufferStrategy _bufferStrategy;
     private Graphics _graphics;
     private JFrame _jFrame;
-
-
 }

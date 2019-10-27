@@ -5,5 +5,9 @@ public interface Game {
     Input getInput();
 
     void run();
-    void stop();
+
+    GameState getGameState();
+    void changeGameState(GameState state);
+    void pushGameState(GameState state);
+    void popGameState();
 }

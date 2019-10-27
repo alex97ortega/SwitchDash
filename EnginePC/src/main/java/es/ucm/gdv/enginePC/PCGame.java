@@ -1,38 +1,30 @@
 package es.ucm.gdv.enginePC;
 
+import java.util.Stack;
+
 import javax.swing.JFrame;
 
+import es.ucm.gdv.engine.GameState;
 import es.ucm.gdv.engine.Graphics;
-import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Input;
-import es.ucm.gdv.engine.Rect;
 
 public class PCGame implements es.ucm.gdv.engine.Game{
 
     public PCGame(JFrame jFrame){
-        _jFrame = jFrame;
-        _graphics = new PCGraphics(_jFrame);
+        _graphics = new PCGraphics(jFrame);
         _input = new PCInput();
 
+        jFrame.setIgnoreRepaint(true);
+        jFrame.setVisible(true);
     }
     public boolean init(){
-        _logo = _graphics.newImage("./Sprites/players.png");
-        if(_logo == null)    return false;
-
-        _jFrame.setIgnoreRepaint(true);
-        _jFrame.setVisible(true);
-
+        states = new Stack<GameState>();
         return _graphics.init();
     }
-    public void render(){
-        _graphics.clear(255);
-
-        if (_logo != null) {
-            _graphics.drawImage(_logo, new Rect(0,100,0,0), new Rect(0,0,528,384/2));
-        }
-    }
     @Override
-    public Graphics getGraphics() { return _graphics; }
+    public Graphics getGraphics() {
+        return _graphics;
+    }
 
     @Override
     public Input getInput() {
@@ -51,31 +43,48 @@ public class PCGame implements es.ucm.gdv.engine.Game{
             lastFrameTime = currentTime;
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
             //switchDashPC.update(elapsedTime);
-
+            getGameState().update(elapsedTime);
             // Pintamos el frame con el BufferStrategy
             do {
                 do {
-                    java.awt.Graphics graphics = _graphics.getBuffer().getDrawGraphics();
                     try {
-                        render();
+                        getGameState().render();
                     }
                     finally {
-                        graphics.dispose();
+                        _graphics.dispose();
                     }
                 } while(_graphics.getBuffer().contentsRestored());
                 _graphics.getBuffer().show();
             } while(_graphics.getBuffer().contentsLost());
         } // while
     }
+    @Override
+    public GameState getGameState() {
+        if(states.empty())
+            return null;
+        return states.peek();
+    }
 
     @Override
-    public void stop() {
+    public void changeGameState(GameState state) {
+        if (!states.empty()){
+            states.pop();
+            states.push(state);
+        }
+    }
 
+    @Override
+    public void pushGameState(GameState state) {
+        states.push(state);
+    }
+    @Override
+    public void popGameState() {
+        if (!states.empty())
+            states.pop();
     }
 
     private PCGraphics _graphics;
     private PCInput _input;
-    private JFrame _jFrame;
-    protected Image _logo;
-
+    private Stack<GameState> states;
 }
+

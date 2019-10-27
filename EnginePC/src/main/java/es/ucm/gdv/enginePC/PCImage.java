@@ -21,6 +21,6 @@ public class PCImage implements es.ucm.gdv.engine.Image {
         return _image.getHeight(null);
     }
     public BufferedImage  getImg(){return _image;}
-    // Image heredando de awt, no de Engine
+
     private BufferedImage _image;
 }
