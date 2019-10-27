@@ -4,25 +4,32 @@ import javax.swing.JFrame;
 
 import es.ucm.gdv.enginePC.PCGame;
 
+public class SwitchDashPC {
 
-public class SwitchDashPC extends JFrame{
-
-    public void init(int windowWidth, int windowHeight){
-
-        setSize(windowWidth,windowHeight);
-        // Ojo esto es necesario para que se cierre la aplicacion una vez cerrada la ventana.
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIgnoreRepaint(true);
-        setVisible(true);
-        game = new PCGame(this);
-
-        game.run();
+    public SwitchDashPC(String title, int windowWidth, int windowHeight ){
+        _jFrame = new JFrame(title);
+        _jFrame.setSize(windowWidth,windowHeight);
+        _jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    public boolean init(){
+        pcGame = new PCGame(_jFrame);
+
+        return pcGame.init();
+    }
+
+    public void run(){
+        pcGame.run();
+    }
+
     public static void main(String [] args)
     {
-        SwitchDashPC ventana = new SwitchDashPC();
-
-        ventana.init(400,400);
+        SwitchDashPC switchDashPC = new SwitchDashPC("SwitchDashPC", 1920, 1080);
+        if(!switchDashPC.init())
+            return;
+        switchDashPC.run();
     }
-    private PCGame game;
+
+    protected PCGame pcGame;
+    protected JFrame _jFrame;
 }

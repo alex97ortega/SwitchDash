@@ -11,7 +11,8 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
 
     public PCGraphics(JFrame jFrame){
         _jFrame = jFrame;
-
+    }
+    public boolean init(){
         // Intentamos crear el buffer strategy con 2 buffers.
         int tries = 100;
         while(tries-- >0)
@@ -25,10 +26,13 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
             {
                 e.getCause();
                 System.out.print("Couldn't built a buffer strategy");
+                return false;
             }
         }
         _bufferStrategy = _jFrame.getBufferStrategy();
-        setGraphics(_bufferStrategy.getDrawGraphics());
+        _graphics = _bufferStrategy.getDrawGraphics();
+
+        return true;
     }
     @Override
     public Image newImage(String name) {
@@ -50,8 +54,12 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     }
     @Override
     public void drawImage(Image img, int x, int y){
-        if (img != null) {
-            _graphics.drawImage(((PCImage)(img)).getImg(), (int)x, y, null);
+
+        java.awt.Image tmp = ((PCImage)(img)).getImg();
+
+        if (tmp != null) {
+            //_graphics.drawImage(tmp, x, y, null); // por que no funciona?
+            _bufferStrategy.getDrawGraphics().drawImage(tmp, x, y, null);
         }
     }
 
@@ -65,8 +73,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return _jFrame.getHeight();
     }
 
-    public void setGraphics(Graphics graphics){_graphics=graphics;}
-    public void dispose(){_graphics.dispose();}
+    public BufferStrategy getBuffer(){return _bufferStrategy;}
 
     private BufferStrategy _bufferStrategy;
     private Graphics _graphics;
