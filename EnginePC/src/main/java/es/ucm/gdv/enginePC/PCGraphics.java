@@ -33,7 +33,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
             }
         }
         _bufferStrategy = _jFrame.getBufferStrategy();
-        _graphics = _bufferStrategy.getDrawGraphics();
+        setGraphics();
 
         return true;
     }
@@ -74,10 +74,15 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return _jFrame.getHeight();
     }
 
-    public BufferStrategy getBuffer(){return _bufferStrategy;}
+    public void setGraphics(){_graphics=_bufferStrategy.getDrawGraphics();}
     public void dispose(){
         _bufferStrategy.getDrawGraphics().dispose();
     }
+    boolean frameReady()
+    {
+        return (!_bufferStrategy.contentsRestored() && !_bufferStrategy.contentsLost());
+    }
+    public void show(){_bufferStrategy.show();}
 
     private BufferStrategy _bufferStrategy;
     private Graphics _graphics;

@@ -13,6 +13,7 @@ public class GameManager {
         initSprites(imagePaths);
         _game.pushGameState(new StartGameState(_game, this));
     }
+
     private void initSprites(String[] imagePaths)
     {
         images = new Image[imagePaths.length];
@@ -20,10 +21,14 @@ public class GameManager {
             images[i] = _game.getGraphics().newImage(imagePaths[i]);
         }
     }
+
     public Image getImage(Images img){return images[img.ordinal()];}
+
+    public int getGameVelocity(){return gameVelocity;}
 
     private Game _game;
     private Image[] images;
+    private int gameVelocity = 100;
 
 
     public enum Images{

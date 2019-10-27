@@ -36,26 +36,35 @@ public class PCGame implements es.ucm.gdv.engine.Game{
 
         long lastFrameTime = System.nanoTime();
 
+        long informePrevio = lastFrameTime; // Informes de FPS
+        int frames = 0;
         // Bucle principal
         while(true) {
             long currentTime = System.nanoTime();
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-
+            // Informe de FPS
+            if (currentTime - informePrevio > 1000000000l) {
+                long fps = frames * 1000000000l / (currentTime - informePrevio);
+                System.out.println("" + fps + " fps");
+                frames = 0;
+                informePrevio = currentTime;
+            }
+            ++frames;
             getGameState().update(elapsedTime);
             // Pintamos el frame con el BufferStrategy
-            do {
+
                 do {
+                    _graphics.setGraphics();
                     try {
                         getGameState().render();
                     }
                     finally {
                         _graphics.dispose();
                     }
-                } while(_graphics.getBuffer().contentsRestored());
-                _graphics.getBuffer().show();
-            } while(_graphics.getBuffer().contentsLost());
+                } while(!_graphics.frameReady());
+                _graphics.show();
         } // while
     }
     @Override

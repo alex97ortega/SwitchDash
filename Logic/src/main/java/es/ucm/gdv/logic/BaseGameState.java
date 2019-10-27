@@ -11,12 +11,14 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
     BaseGameState(Game game, GameManager gm){
         _game = game;
         _gm = gm;
+        screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight(), _game.getGraphics(), _gm);
     }
     @Override
     public void update(double elapsedTime) {
 
         screen.update(elapsedTime);
         if(!_game.getInput().getTouchEvents().isEmpty()){
+            //System.out.print(events);
             for (Input.TouchEvent t:_game.getInput().getTouchEvents() ) {
                 if(t.type == Input.TouchEvent.Type.Pressed){
                     onPress((int)t.x, (int)t.y);
@@ -29,7 +31,7 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
     @Override
     public void render() {
         _game.getGraphics().clear(0);
-        screen.render(_game.getGraphics(),_gm, GameManager.BackgroundColor.GREEN);
+        screen.render(GameManager.BackgroundColor.GREEN);
     }
     @Override
     public void onPress(int x, int y){

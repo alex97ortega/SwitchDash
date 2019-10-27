@@ -7,7 +7,6 @@ import es.ucm.gdv.engine.Rect;
 public class StartGameState extends BaseGameState {
     StartGameState(Game game, GameManager gm){
         super(game,gm);
-        screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight());
         buttons = new Button[2];
         buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
         buttons[1] = new Button(_game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
