@@ -1,9 +1,7 @@
 package es.ucm.gdv.logic;
 
 import es.ucm.gdv.engine.Game;
-import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Input;
-import es.ucm.gdv.engine.Rect;
 
 // comportamientos que sean comunes a todos los estados de juego
 public class BaseGameState implements es.ucm.gdv.engine.GameState {
@@ -18,7 +16,9 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
 
         screen.update(elapsedTime);
         if(!_game.getInput().getTouchEvents().isEmpty()){
-            //System.out.print(events);
+            // Esta basura está petando a veces y no le veo el sentido
+            // Está como lo tenía yo el año pasado, vamos a esperar a ver si
+            // Pedro Pablo da alguna guía para el input
             for (Input.TouchEvent t:_game.getInput().getTouchEvents() ) {
                 if(t.type == Input.TouchEvent.Type.Pressed){
                     onPress((int)t.x, (int)t.y);
@@ -30,7 +30,6 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
 
     @Override
     public void render() {
-        _game.getGraphics().clear(0);
         screen.render(GameManager.BackgroundColor.GREEN);
     }
     @Override

@@ -7,7 +7,7 @@ import es.ucm.gdv.engine.Rect;
 public class HelpGameState extends BaseGameState  {
     HelpGameState(Game game, GameManager gm){
         super(game,gm);
-        buttonCancel = new Button(_game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.CANCEL);
+        buttonCancel = new Button(-170,100,_gm,GameManager.Buttons.CANCEL);
     }
 
     @Override

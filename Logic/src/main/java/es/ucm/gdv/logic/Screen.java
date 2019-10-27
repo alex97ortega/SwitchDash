@@ -12,6 +12,8 @@ public class Screen {
         _height = screenHeight;
         this.gm=gm;
         this.graphics=graphics;
+
+        arrow = gm.getImage(GameManager.Images.ARROWS);
     }
 
     public void update(double elapsedTime){
@@ -28,16 +30,57 @@ public class Screen {
         _width = graphics.getWidth();
         _height = graphics.getHeight();
 
-        //drawFondo(color);
+
+        drawFondo(color);
+        //drawFondoGamePlay(color);
         drawArrows();
     }
 
     private void drawFondo(GameManager.BackgroundColor color){
+        switch (color){
+            case GREEN:
+                graphics.clear( 0x41a85f);
+                break;
+            case GREENISH_BLUE:
+                graphics.clear( 0x00a885);
+                break;
+            case CYAN:
+                graphics.clear( 0x3d8eb9);
+                break;
+            case LIGHT_BLUE:
+                graphics.clear( 0x2969b0);
+                break;
+            case PURPLE:
+                graphics.clear( 0x553982);
+                break;
+            case DARK_BLUE:
+                graphics.clear( 0x28324e);
+                break;
+            case ORANGE:
+                graphics.clear( 0xf37934);
+                break;
+            case RED:
+                graphics.clear( 0xd14b41);
+                break;
+            case BEIGE:
+                graphics.clear( 0x75706b);
+                break;
+            default:
+                break;
+        }
+    }
+    // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
+    // Aunque no tiene mucho sentido, porque es exactamente del mismo color que el drawFondo()
+    // y baja bastante el rendimiento. Pero ahí lo dejo, por siaca.
+    private void drawFondoGamePlay(GameManager.BackgroundColor color){
         Image fondo = gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         int height = fondo.getHeight();
 
-        for (int i=0; i<_width;i+=width){ // ancho
+        int comienzoX = _width/2-(arrow.getWidth()/2);
+        int finalX = comienzoX + arrow.getWidth() - width;
+
+        for (int i=comienzoX; i<finalX;i+=width){ // ancho
             for (int j=0; j<_height;j+=height){ // alto
                 graphics.drawImage
                         (fondo, new Rect(i,j,0,0),
@@ -46,21 +89,20 @@ public class Screen {
         }
     }
     private void drawArrows(){
-        Image img = gm.getImage(GameManager.Images.ARROWS);
-        int x = _width/2-(img.getWidth()/2);
+        int x = _width/2-(arrow.getWidth()/2);
 
         // dibujamos 2 imágenes que se irán recolocando arriba de la pantalla
         // al llegar alfinal de la misma
 
         // la imagen es demasiado grande, si la pinto con su tamaño en lugar de
         // con tamaño height, baja el rendimiento
-        graphics.drawImage(img,
+        graphics.drawImage(arrow,
                 new Rect(x,posYarrows,0,0),
-                new Rect(0,0,img.getWidth(),_height),255);
+                new Rect(0,0,arrow.getWidth(),_height),255);
 
-        graphics.drawImage(img,
+        graphics.drawImage(arrow,
                 new Rect(x,posYarrows -_height,0,0),
-                new Rect(0,0,img.getWidth(),_height),255);
+                new Rect(0,0,arrow.getWidth(),_height),255);
 
     }
     public int getWidth() {
@@ -72,6 +114,7 @@ public class Screen {
     }
     private int _width, _height;
     private int posYarrows = 0;
+    private Image arrow;
 
     private GameManager gm;
     private Graphics graphics;

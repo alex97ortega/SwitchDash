@@ -1,8 +1,6 @@
 package es.ucm.gdv.logic;
 
 import es.ucm.gdv.engine.Game;
-import es.ucm.gdv.engine.Image;
-import es.ucm.gdv.engine.Rect;
 
 public class GamePlayState extends BaseGameState {
     GamePlayState(Game game, GameManager gm){
@@ -14,6 +12,8 @@ public class GamePlayState extends BaseGameState {
         for (int i = 0;i < balls.length; i++){
             balls[i] = new Ball(-395*i,_game,_gm );
         }
+        int rdn = (int)(Math.random()*GameManager.BackgroundColor.TOTAL_COLORS.ordinal())+1;
+        color = GameManager.BackgroundColor.values()[rdn];
     }
 
     @Override
@@ -30,8 +30,7 @@ public class GamePlayState extends BaseGameState {
     }
     @Override
     public void render() {
-        _game.getGraphics().clear(0);
-        screen.render(GameManager.BackgroundColor.GREENISH_BLUE);
+        screen.render(color);
         player.render(_game);
         for (Ball b: balls) {
             b.render(_game);
@@ -45,4 +44,5 @@ public class GamePlayState extends BaseGameState {
 
     private Player player;
     private Ball[] balls;
+    private GameManager.BackgroundColor color;
 }

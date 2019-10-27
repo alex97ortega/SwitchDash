@@ -9,7 +9,7 @@ public class StartGameState extends BaseGameState {
         super(game,gm);
         buttons = new Button[2];
         buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
-        buttons[1] = new Button(_game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
+        buttons[1] = new Button(-170,100,_gm,GameManager.Buttons.HELP);
     }
 
     @Override

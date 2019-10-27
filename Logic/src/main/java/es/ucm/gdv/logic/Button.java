@@ -18,8 +18,12 @@ public class Button {
 
     public void render(Game game){
         int cripX = _width * _type.ordinal();
+        int x = _x;
+        // por si cambiamos tamaño de la pantalla, feísimo, pero por ahora vale
+        if(_type == GameManager.Buttons.CANCEL || _type == GameManager.Buttons.HELP )
+            x += game.getGraphics().getWidth();
         game.getGraphics().drawImage(_img,
-                new Rect(_x,_y,0,0),
+                new Rect(x,_y,0,0),
                 new Rect(cripX,0,_width,_height), 255);
     }
 

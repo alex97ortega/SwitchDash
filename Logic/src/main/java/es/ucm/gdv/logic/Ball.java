@@ -12,8 +12,8 @@ public class Ball {
 
         _gm = gm;
 
-        int rand = (int)(Math.random() * 3);
-        if(rand>1)
+        double rand = (Math.random());
+        if(rand>0.3) // con 0.5, que es lo que debería ser, no sale ni una negra, no entiendo na
             state = Color.BLACK;
         else
             state = Color.WHITE;
