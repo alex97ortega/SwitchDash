@@ -1,10 +1,13 @@
 package es.ucm.gdv.enginePC;
 
 import es.ucm.gdv.engine.Image;
+import es.ucm.gdv.engine.Rect;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class PCGraphics implements es.ucm.gdv.engine.Graphics {
@@ -53,16 +56,14 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         _graphics.fillRect(0, 0, getWidth(), getHeight());
     }
     @Override
-    public void drawImage(Image img, int x, int y){
-
-        java.awt.Image tmp = ((PCImage)(img)).getImg();
+    public void drawImage(Image img, Rect scr, Rect clip) {
+        BufferedImage tmp = ((PCImage)(img)).getImg();
 
         if (tmp != null) {
-            //_graphics.drawImage(tmp, x, y, null); // por que no funciona?
-            _bufferStrategy.getDrawGraphics().drawImage(tmp, x, y, null);
+            tmp = tmp.getSubimage(clip.getX(), clip.getY(), clip.getW(), clip.getH());
+            _graphics.drawImage(tmp, scr.getX(), scr.getY(), null);
         }
     }
-
     @Override
     public int getWidth() {
         return _jFrame.getWidth();
@@ -78,4 +79,6 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     private BufferStrategy _bufferStrategy;
     private Graphics _graphics;
     private JFrame _jFrame;
+
+
 }

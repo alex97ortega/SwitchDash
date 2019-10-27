@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Input;
+import es.ucm.gdv.engine.Rect;
 
 public class PCGame implements es.ucm.gdv.engine.Game{
 
@@ -27,7 +28,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         _graphics.clear(255);
 
         if (_logo != null) {
-            _graphics.drawImage(_logo, 0, 100);
+            _graphics.drawImage(_logo, new Rect(0,100,0,0), new Rect(0,0,528,384/2));
         }
     }
     @Override

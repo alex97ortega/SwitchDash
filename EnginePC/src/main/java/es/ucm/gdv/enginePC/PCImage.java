@@ -1,10 +1,10 @@
 package es.ucm.gdv.enginePC;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public class PCImage implements es.ucm.gdv.engine.Image {
 
-    public PCImage(Image image)
+    public PCImage(BufferedImage image)
     {
         _image = image;
     }
@@ -20,7 +20,7 @@ public class PCImage implements es.ucm.gdv.engine.Image {
     {
         return _image.getHeight(null);
     }
-    public Image getImg(){return _image;}
+    public BufferedImage  getImg(){return _image;}
     // Image heredando de awt, no de Engine
-    private  Image _image;
+    private BufferedImage _image;
 }
