@@ -10,6 +10,7 @@ public class GameManager {
     }
     public void init(String[] imagePaths)
     {
+        screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight());
         initSprites(imagePaths);
         _game.pushGameState(new StartGameState(_game, this));
     }
@@ -20,8 +21,41 @@ public class GameManager {
             images[i] = _game.getGraphics().newImage(imagePaths[i]);
         }
     }
-    public Image[] getImages(){return images;} // esto habrá que cambiarlo
+    public Screen getScreen(){return screen;}
+    public Image getImage(Images img){return images[img.ordinal()];}
+    public int getColor(BackgroundColor color){return color.ordinal();}
 
     private Game _game;
+    private Screen screen;
     private Image[] images;
+
+
+    public enum Images{
+        ARROWS,
+        BACKGROUND,
+        BALLS,
+        BUTTONS,
+        GAMEOVER,
+        HOWTOPLAY,
+        INSTRUCTIONS,
+        PLAYAGAIN,
+        PLAYERS,
+        SCOREFONT,
+        LOGO,
+        TAPTOPLAY,
+        WHITE,
+        TOTAL_IMAGES
+    }
+    public enum BackgroundColor{
+        GREEN,
+        GREENISH_BLUE,
+        CYAN,
+        LIGHT_BLUE,
+        PURPLE,
+        DARK_BLUE,
+        ORANGE,
+        RED,
+        BEIGE,
+        TOTAL_COLORS
+    }
 }

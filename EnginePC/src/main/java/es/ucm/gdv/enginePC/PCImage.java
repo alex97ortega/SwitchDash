@@ -12,14 +12,15 @@ public class PCImage implements es.ucm.gdv.engine.Image {
     @Override
     public int getHeight()
     {
-        return _image.getWidth(null);
+        return _image.getHeight(null);
     }
 
     @Override
     public int getWidth()
     {
-        return _image.getHeight(null);
+        return _image.getWidth(null);
     }
+
     public BufferedImage  getImg(){return _image;}
 
     private BufferedImage _image;
