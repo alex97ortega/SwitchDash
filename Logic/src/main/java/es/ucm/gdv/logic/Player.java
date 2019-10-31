@@ -19,7 +19,7 @@ public class Player {
         int _x = game.getGraphics().getWidth()/2-(_img.getWidth()/2);
 
         game.getGraphics().drawImage(_img,
-                new Rect(_x,_y,0,0),
+                new Rect(_x,_y,_img.getWidth(),_img.getHeight()/2),
                 new Rect(0,clipY,_img.getWidth(),_img.getHeight()/2), 255);
     }
 

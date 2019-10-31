@@ -13,14 +13,16 @@ public class Ball {
         _gm = gm;
 
         double rand = (Math.random());
-        if(rand>0.3) // con 0.5, que es lo que debería ser, no sale ni una negra, no entiendo na
+        if(rand>0.5)
             state = Color.BLACK;
         else
             state = Color.WHITE;
     }
 
     public boolean update(double elapsedTime){
-        _y += _gm.getGameVelocity()*elapsedTime;
+
+        //_y += _gm.getGameVelocity()*elapsedTime;
+        _y+=0.2f;
         if(_y >= finalY){
             return true; // devuelve true cuando llegue al final
         }
@@ -36,13 +38,13 @@ public class Ball {
         int _x = game.getGraphics().getWidth()/2-((_img.getWidth()/10)/2);
 
         game.getGraphics().drawImage(_img,
-                new Rect(_x,_y,0,0),
+                new Rect(_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
                 new Rect(0,clipY,_img.getWidth()/10,_img.getHeight()/2), 255);
     }
 
     public void regenerate(){
-        int rand = (int)(Math.random() * 2);
-        if(rand>1)
+        double rand = (Math.random());
+        if(rand>0.5)
             state = Color.BLACK;
         else
             state = Color.WHITE;
@@ -50,7 +52,7 @@ public class Ball {
     }
     public int getColor(){return state.ordinal();}
 
-    private int _y;
+    private float _y;
     private final int initialY = -395*2 -200;
     private final int finalY = 395*2 -200;
     private Image _img;

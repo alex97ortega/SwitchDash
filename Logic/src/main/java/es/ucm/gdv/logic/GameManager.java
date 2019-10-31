@@ -24,11 +24,11 @@ public class GameManager {
 
     public Image getImage(Images img){return images[img.ordinal()];}
 
-    public int getGameVelocity(){return gameVelocity;}
+    public float getGameVelocity(){return gameVelocity;}
 
     private Game _game;
     private Image[] images;
-    private int gameVelocity = 100;
+    private float gameVelocity = 100000000;
 
 
     public enum Images{

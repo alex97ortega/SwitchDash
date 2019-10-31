@@ -61,7 +61,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
                 }
                 ++frames;
 
-                getGameState().update(elapsedTime);
+                getGameState().update(currentTime-elapsedTime);
                 // Pintamos el frame con el BufferStrategy
 
                 do {

@@ -17,8 +17,8 @@ public class Screen {
     }
 
     public void update(double elapsedTime){
-
-        posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
+        //posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
+        posYarrows += 0.5f;
 
         if(posYarrows >= arrow.getHeight())
             posYarrows = 0;
@@ -97,11 +97,11 @@ public class Screen {
         // la imagen es demasiado grande, si la pinto con su tamaño en lugar de
         // con tamaño height, baja el rendimiento
         graphics.drawImage(arrow,
-                new Rect(x,posYarrows,arrow.getWidth(),arrow.getHeight()),
+                new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
 
         graphics.drawImage(arrow,
-                new Rect(x,posYarrows -_height,arrow.getWidth(),arrow.getHeight()),
+                new Rect(x,(int)posYarrows -arrow.getHeight(),arrow.getWidth(),arrow.getHeight()),
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
 
     }
@@ -113,7 +113,7 @@ public class Screen {
         return _height;
     }
     private int _width, _height;
-    private int posYarrows = 0;
+    private float posYarrows = 0;
     private Image arrow;
 
     private GameManager gm;

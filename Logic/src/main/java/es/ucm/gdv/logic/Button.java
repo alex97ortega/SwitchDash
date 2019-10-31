@@ -25,8 +25,6 @@ public class Button {
 
     // check position for clicks
     public boolean inside(int x, int y){
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
         if(x < _x || x > _x +_width )
             return false;
         if(y < _y || y > _y +_height)
