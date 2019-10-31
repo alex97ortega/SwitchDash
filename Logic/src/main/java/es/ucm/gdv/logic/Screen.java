@@ -20,7 +20,7 @@ public class Screen {
 
         posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
 
-        if(posYarrows >= _height)
+        if(posYarrows >= arrow.getHeight())
             posYarrows = 0;
     }
     public void render(GameManager.BackgroundColor color ){
@@ -97,12 +97,12 @@ public class Screen {
         // la imagen es demasiado grande, si la pinto con su tamaño en lugar de
         // con tamaño height, baja el rendimiento
         graphics.drawImage(arrow,
-                new Rect(x,posYarrows,0,0),
-                new Rect(0,0,arrow.getWidth(),_height),255);
+                new Rect(x,posYarrows,arrow.getWidth(),arrow.getHeight()),
+                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
 
         graphics.drawImage(arrow,
-                new Rect(x,posYarrows -_height,0,0),
-                new Rect(0,0,arrow.getWidth(),_height),255);
+                new Rect(x,posYarrows -_height,arrow.getWidth(),arrow.getHeight()),
+                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
 
     }
     public int getWidth() {

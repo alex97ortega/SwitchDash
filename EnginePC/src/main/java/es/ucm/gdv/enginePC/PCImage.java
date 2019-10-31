@@ -1,10 +1,10 @@
 package es.ucm.gdv.enginePC;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 public class PCImage implements es.ucm.gdv.engine.Image {
 
-    public PCImage(BufferedImage image)
+    public PCImage(Image image)
     {
         _image = image;
     }
@@ -21,7 +21,7 @@ public class PCImage implements es.ucm.gdv.engine.Image {
         return _image.getWidth(null);
     }
 
-    public BufferedImage  getImg(){return _image;}
+    public Image  getImg(){return _image;}
 
-    private BufferedImage _image;
+    private Image _image;
 }

@@ -55,14 +55,14 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         _graphics.setColor(new Color(color));
         _graphics.fillRect(0, 0, getWidth(), getHeight());
     }
+    // scr es la superficie en pantalla de lo que queremos dibujr
+    // clip es el recorte de la imagen que queremos
     @Override
     public void drawImage(Image img, Rect scr, Rect clip, int alpha) {
-        BufferedImage tmp = ((PCImage)(img)).getImg();
-
-        if (tmp != null) {
-            tmp = tmp.getSubimage(clip.getX(), clip.getY(), clip.getW(), clip.getH());
-            _graphics.drawImage(tmp, scr.getX(), scr.getY(), null);
-        }
+        java.awt.Image tmp = ((PCImage)(img)).getImg();
+        _graphics.drawImage(tmp,
+                scr.getA().getX(), scr.getA().getY(), scr.getB().getX(), scr.getB().getY(),
+                clip.getA().getX(), clip.getA().getY(), clip.getB().getX(), clip.getB().getY(),null);
     }
     @Override
     public int getWidth() {

@@ -18,17 +18,15 @@ public class Button {
 
     public void render(Game game){
         int cripX = _width * _type.ordinal();
-        int x = _x;
-        // por si cambiamos tamaño de la pantalla, feísimo, pero por ahora vale
-        if(_type == GameManager.Buttons.CANCEL || _type == GameManager.Buttons.HELP )
-            x += game.getGraphics().getWidth();
         game.getGraphics().drawImage(_img,
-                new Rect(x,_y,0,0),
+                new Rect(_x,_y,_width,_height),
                 new Rect(cripX,0,_width,_height), 255);
     }
 
     // check position for clicks
     public boolean inside(int x, int y){
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
         if(x < _x || x > _x +_width )
             return false;
         if(y < _y || y > _y +_height)

@@ -7,7 +7,7 @@ import es.ucm.gdv.engine.Rect;
 public class HelpGameState extends BaseGameState  {
     HelpGameState(Game game, GameManager gm){
         super(game,gm);
-        buttonCancel = new Button(-170,100,_gm,GameManager.Buttons.CANCEL);
+        buttonCancel = new Button(game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.CANCEL);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class HelpGameState extends BaseGameState  {
         int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
 
         _game.getGraphics().drawImage(img,
-                new Rect(x,40,0,0),
+                new Rect(x,40,img.getWidth(),img.getHeight()),
                 new Rect(0,0,img.getWidth(),img.getHeight()), 255);
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
         x = _game.getGraphics().getWidth()/2-(img2.getWidth()/2);
 
         _game.getGraphics().drawImage(img2,
-                new Rect(x,img.getHeight()+40,0,0),
+                new Rect(x,img.getHeight()+40,img2.getWidth(),img2.getHeight()),
                 new Rect(0,0,img2.getWidth(),img2.getHeight()), 255);
 
         buttonCancel.render(_game);
