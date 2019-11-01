@@ -21,8 +21,7 @@ public class Ball {
 
     public boolean update(double elapsedTime){
 
-        //_y += _gm.getGameVelocity()*elapsedTime;
-        _y+=0.2f;
+        _y += _gm.getGameVelocity()*elapsedTime;
         if(_y >= finalY){
             return true; // devuelve true cuando llegue al final
         }

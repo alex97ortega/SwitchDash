@@ -17,9 +17,7 @@ public class Screen {
     }
 
     public void update(double elapsedTime){
-        //posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
-        posYarrows += 0.5f;
-
+        posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
         if(posYarrows >= arrow.getHeight())
             posYarrows = 0;
     }
@@ -71,7 +69,7 @@ public class Screen {
     }
     // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
     // Aunque no tiene mucho sentido, porque es exactamente del mismo color que el drawFondo()
-    // y baja bastante el rendimiento. Pero ahí lo dejo, por siaca.
+    // y baja el rendimiento. Pero ahí lo dejo, por siaca.
     private void drawFondoGamePlay(GameManager.BackgroundColor color){
         Image fondo = gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
@@ -83,7 +81,7 @@ public class Screen {
         for (int i=comienzoX; i<finalX;i+=width){ // ancho
             for (int j=0; j<_height;j+=height){ // alto
                 graphics.drawImage
-                        (fondo, new Rect(i,j,0,0),
+                        (fondo, new Rect(i,j,width,height),
                                 new Rect(width*color.ordinal(),0,width,height),255);
             }
         }

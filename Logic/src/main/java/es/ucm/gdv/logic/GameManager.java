@@ -28,7 +28,7 @@ public class GameManager {
 
     private Game _game;
     private Image[] images;
-    private float gameVelocity = 100000000;
+    private float gameVelocity = 300;
 
 
     public enum Images{
