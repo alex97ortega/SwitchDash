@@ -38,7 +38,7 @@ public class Ball {
 
         game.getGraphics().drawImage(_img,
                 new Rect(_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
-                new Rect(0,clipY,_img.getWidth()/10,_img.getHeight()/2), 255);
+                new Rect(0,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
     }
 
     public void regenerate(){

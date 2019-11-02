@@ -10,23 +10,40 @@ public class Screen {
     {
         _width = screenWidth;
         _height = screenHeight;
-        this.gm=gm;
-        this.graphics=graphics;
+        _gm=gm;
+        _graphics=graphics;
 
         arrow = gm.getImage(GameManager.Images.ARROWS);
+
+        alpha=0;
+        alphaSum=true;
     }
 
     public void update(double elapsedTime){
-        posYarrows += (gm.getGameVelocity()-46)*elapsedTime;
+        posYarrows += (_gm.getGameVelocity()-46)*elapsedTime;
         if(posYarrows >= arrow.getHeight())
             posYarrows = 0;
+
+        // alpha para el tapToPlay
+        if(alpha <= 0){
+            alpha = 0;
+            alphaSum = true;
+        }
+        else if (alpha >= 1.f){
+            alpha = 0.9f;
+            alphaSum = false;
+        }
+        if(alphaSum)
+            alpha += 2*elapsedTime;
+        else
+            alpha -= 2*elapsedTime;
     }
     public void render(GameManager.BackgroundColor color ){
         // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
         //  de la pantalla mientras se juega
 
-        _width = graphics.getWidth();
-        _height = graphics.getHeight();
+        _width = _graphics.getWidth();
+        _height = _graphics.getHeight();
 
 
         drawFondo(color);
@@ -37,31 +54,31 @@ public class Screen {
     private void drawFondo(GameManager.BackgroundColor color){
         switch (color){
             case GREEN:
-                graphics.clear( 0x41a85f);
+                _graphics.clear( 0x41a85f);
                 break;
             case GREENISH_BLUE:
-                graphics.clear( 0x00a885);
+                _graphics.clear( 0x00a885);
                 break;
             case CYAN:
-                graphics.clear( 0x3d8eb9);
+                _graphics.clear( 0x3d8eb9);
                 break;
             case LIGHT_BLUE:
-                graphics.clear( 0x2969b0);
+                _graphics.clear( 0x2969b0);
                 break;
             case PURPLE:
-                graphics.clear( 0x553982);
+                _graphics.clear( 0x553982);
                 break;
             case DARK_BLUE:
-                graphics.clear( 0x28324e);
+                _graphics.clear( 0x28324e);
                 break;
             case ORANGE:
-                graphics.clear( 0xf37934);
+                _graphics.clear( 0xf37934);
                 break;
             case RED:
-                graphics.clear( 0xd14b41);
+                _graphics.clear( 0xd14b41);
                 break;
             case BEIGE:
-                graphics.clear( 0x75706b);
+                _graphics.clear( 0x75706b);
                 break;
             default:
                 break;
@@ -71,7 +88,7 @@ public class Screen {
     // Aunque no tiene mucho sentido, porque es exactamente del mismo color que el drawFondo()
     // y baja el rendimiento. Pero ahí lo dejo, por siaca.
     private void drawFondoGamePlay(GameManager.BackgroundColor color){
-        Image fondo = gm.getImage(GameManager.Images.BACKGROUND);
+        Image fondo = _gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         int height = fondo.getHeight();
 
@@ -80,9 +97,9 @@ public class Screen {
 
         for (int i=comienzoX; i<finalX;i+=width){ // ancho
             for (int j=0; j<_height;j+=height){ // alto
-                graphics.drawImage
+                _graphics.drawImage
                         (fondo, new Rect(i,j,width,height),
-                                new Rect(width*color.ordinal(),0,width,height),255);
+                                new Rect(width*color.ordinal(),0,width,height),1.f);
             }
         }
     }
@@ -94,14 +111,20 @@ public class Screen {
 
         // la imagen es demasiado grande, si la pinto con su tamaño en lugar de
         // con tamaño height, baja el rendimiento
-        graphics.drawImage(arrow,
+        _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
-                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
+                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
 
-        graphics.drawImage(arrow,
+        _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows -arrow.getHeight(),arrow.getWidth(),arrow.getHeight()),
-                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),255);
+                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
 
+    }
+    public void drawTapToPlay(int x, int y){
+        Image img = _gm.getImage(GameManager.Images.TAPTOPLAY);
+        _graphics.drawImage(img,
+                new Rect(x,y,img.getWidth(),img.getHeight()),
+                new Rect(0,0,img.getWidth(),img.getHeight()), alpha);
     }
     public int getWidth() {
         return _width;
@@ -110,10 +133,14 @@ public class Screen {
     public int getHeight() {
         return _height;
     }
+
     private int _width, _height;
     private float posYarrows = 0;
     private Image arrow;
 
-    private GameManager gm;
-    private Graphics graphics;
+    float alpha;
+    boolean alphaSum;
+
+    private GameManager _gm;
+    private Graphics _graphics;
 }

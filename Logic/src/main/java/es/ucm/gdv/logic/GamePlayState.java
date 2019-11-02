@@ -12,13 +12,14 @@ public class GamePlayState extends BaseGameState {
         for (int i = 0;i < balls.length; i++){
             balls[i] = new Ball(-395*i,_game,_gm );
         }
-        int rdn = (int)(Math.random()*GameManager.BackgroundColor.TOTAL_COLORS.ordinal())+1;
+        int rdn = (int)(Math.random()*GameManager.BackgroundColor.TOTAL_COLORS.ordinal()-1)+1;
         color = GameManager.BackgroundColor.values()[rdn];
     }
 
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
+        // update de las bolas
         for (Ball b: balls) {
             if(b.update(elapsedTime)){ // si llega hasta el player vemos el color
                 if(b.getColor() != player.getColor()) // game over
@@ -27,6 +28,7 @@ public class GamePlayState extends BaseGameState {
                     b.regenerate();
             }
         }
+        // muestro por pantalla el tiempo
     }
     @Override
     public void render() {

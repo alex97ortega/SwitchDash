@@ -13,7 +13,6 @@ public class HelpGameState extends BaseGameState  {
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
-
     }
     @Override
     public void render() {
@@ -22,17 +21,24 @@ public class HelpGameState extends BaseGameState  {
         // HOW TO PLAY
         Image img = _gm.getImage(GameManager.Images.HOWTOPLAY);
         int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        int y = 40;
 
         _game.getGraphics().drawImage(img,
-                new Rect(x,40,img.getWidth(),img.getHeight()),
-                new Rect(0,0,img.getWidth(),img.getHeight()), 255);
+                new Rect(x,y,img.getWidth(),img.getHeight()),
+                new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
-        x = _game.getGraphics().getWidth()/2-(img2.getWidth()/2);
+        x = _game.getGraphics().getWidth()/2-((int)(img2.getWidth()/1.4f)/2);
+        y = img.getHeight()+50;
 
         _game.getGraphics().drawImage(img2,
-                new Rect(x,img.getHeight()+40,img2.getWidth(),img2.getHeight()),
-                new Rect(0,0,img2.getWidth(),img2.getHeight()), 255);
+                new Rect(x,y,(int)(img2.getWidth()/1.4f),(int)(img2.getHeight()/1.4f)),
+                new Rect(0,0,img2.getWidth(),img2.getHeight()), 1.f);
+
+        // TapToPlay
+        x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        y += (int)(img2.getHeight()/1.4f)+10;
+        screen.drawTapToPlay(x,y);
 
         buttonCancel.render(_game);
     }

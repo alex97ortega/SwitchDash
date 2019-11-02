@@ -46,7 +46,6 @@ public class PCGame implements es.ucm.gdv.engine.Game{
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-
                 // Informe de FPS
                 /*if (currentTime - informePrevio > 1000000000l) {
                     long fps = frames * 1000000000l / (currentTime - informePrevio);

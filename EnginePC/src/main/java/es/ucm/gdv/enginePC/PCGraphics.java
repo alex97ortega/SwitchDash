@@ -3,10 +3,10 @@ package es.ucm.gdv.enginePC;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -52,15 +52,24 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void clear(int color){
-        _graphics.setColor(new Color(color));
-        _graphics.fillRect(0, 0, getWidth(), getHeight());
+        _graphics2D.setColor(new Color(color));
+        _graphics2D.fillRect(0, 0, getWidth(), getHeight());
     }
     // scr es la superficie en pantalla de lo que queremos dibujr
     // clip es el recorte de la imagen que queremos
     @Override
-    public void drawImage(Image img, Rect scr, Rect clip, int alpha) {
+    public void drawImage(Image img, Rect scr, Rect clip, float alpha) {
         java.awt.Image tmp = ((PCImage)(img)).getImg();
-        _graphics.drawImage(tmp,
+
+        // para el alpha
+        // pequeño control para que no casque el setComposite
+        if (alpha > 1.f) alpha = 1.f;
+        else if (alpha < 0) alpha = 0;
+        _graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+                    alpha));
+
+
+        _graphics2D.drawImage(tmp,
                 scr.getA().getX(), scr.getA().getY(), scr.getB().getX(), scr.getB().getY(),
                 clip.getA().getX(), clip.getA().getY(), clip.getB().getX(), clip.getB().getY(),null);
     }
@@ -74,7 +83,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return _jFrame.getHeight();
     }
 
-    public void setGraphics(){_graphics=_bufferStrategy.getDrawGraphics();}
+    public void setGraphics(){_graphics2D=(Graphics2D)_bufferStrategy.getDrawGraphics();}
     public void dispose(){
         _bufferStrategy.getDrawGraphics().dispose();
     }
@@ -85,6 +94,6 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     public void show(){_bufferStrategy.show();}
 
     private BufferStrategy _bufferStrategy;
-    private Graphics _graphics;
+    private Graphics2D _graphics2D; // para alpha
     private JFrame _jFrame;
 }

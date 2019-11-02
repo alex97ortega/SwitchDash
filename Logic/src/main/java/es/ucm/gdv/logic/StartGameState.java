@@ -15,19 +15,26 @@ public class StartGameState extends BaseGameState {
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
-
     }
     @Override
     public void render() {
         super.render();
 
-        Image logo = _gm.getImage(GameManager.Images.LOGO);
-        int x = _game.getGraphics().getWidth()/2-(logo.getWidth()/2);
+        // logo
+        Image img = _gm.getImage(GameManager.Images.LOGO);
+        int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        int y = 50;
+        _game.getGraphics().drawImage(img,
+                new Rect(x,y,img.getWidth(),img.getHeight()),
+                new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
 
-        _game.getGraphics().drawImage(logo,
-                new Rect(x,50,logo.getWidth(),logo.getHeight()),
-                new Rect(0,0,logo.getWidth(),logo.getHeight()), 255);
+        // tap to play
+        img = _gm.getImage(GameManager.Images.TAPTOPLAY);
+        x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        y = _game.getGraphics().getHeight()/2-(img.getHeight()/2);
+        screen.drawTapToPlay(x,y);
 
+        // buttons
         for (Button b:
              buttons) {
             b.render(_game);

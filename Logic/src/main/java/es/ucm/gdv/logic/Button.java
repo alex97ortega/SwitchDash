@@ -20,7 +20,7 @@ public class Button {
         int cripX = _width * _type.ordinal();
         game.getGraphics().drawImage(_img,
                 new Rect(_x,_y,_width,_height),
-                new Rect(cripX,0,_width,_height), 255);
+                new Rect(cripX,0,_width,_height), 1.f);
     }
 
     // check position for clicks
