@@ -5,13 +5,15 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class GameOverState extends BaseGameState{
-    GameOverState(Game game, GameManager gm, GameManager.BackgroundColor c, int sc){
+    GameOverState(Game game, GameManager gm,  int sc){
         super(game,gm);
         buttons = new Button[2];
-        color=c;
         score = sc;
-        buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
-        buttons[1] = new Button(game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
+        buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        buttons[1] = new Button(Button.Position.RIGHT,_gm,GameManager.Buttons.HELP);
+
+        _gm.setInitialVelocity();
+        initialTime = System.nanoTime()/ 1.0E9;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class GameOverState extends BaseGameState{
     @Override
     public void render() {
         super.render();
-        screen.render(color);
+        screen.render(_gm.getColor());
 
         // Game Over
         Image img = _gm.getImage(GameManager.Images.GAMEOVER);
@@ -35,14 +37,14 @@ public class GameOverState extends BaseGameState{
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/15/2);
         y = _game.getGraphics().getHeight()/2;
 
-        screen.drawNumber(x,y,score);
+        screen.drawScore(x,y,score);
         screen.drawText(x-180, y+130, "points");
 
         // Play again
-        /*img = _gm.getImage(GameManager.Images.TAPTOPLAY);
+        img = _gm.getImage(GameManager.Images.PLAYAGAIN);
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        y = _game.getGraphics().getHeight()/2-(img.getHeight()/2);
-        screen.drawTapToPlay(x,y);*/
+        y = _game.getGraphics().getHeight()-100;
+        screen.drawAlphaImage(x,y,img);
 
         // buttons
         for (Button b:
@@ -56,26 +58,20 @@ public class GameOverState extends BaseGameState{
         for (Button b:
                 buttons) {
             if(b.inside(x,y)){
-                buttonClicked(b.getType());
+                _gm.buttonClicked(b);
                 return;
             }
         }
-        // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
-        _game.changeGameState(new GamePlayState(_game,_gm));
+        // dejamos un par de segundos sin poder reiniciar partida
+        // para que el jugador pueda ver el resultado, ya que es probable
+        // que si estaba jugando el juego con mucha velocidad haga click sin querer
+        // justo al haber cambiado el estado, y no da tiempo a ver el record.
+        double currentTime = System.nanoTime()/ 1.0E9;
+        if(currentTime - initialTime > 2)
+            _game.changeGameState(new GamePlayState(_game,_gm));
     }
 
-    private void buttonClicked(GameManager.Buttons type){
-        switch (type){
-            case SOUND_ON:
-                break;
-            case HELP:
-                _game.changeGameState(new HelpGameState(_game,_gm,color));
-                break;
-            default:
-                break;
-        }
-    }
     private int score;
     private Button[] buttons;
-    private GameManager.BackgroundColor color;
+    double initialTime;
 }

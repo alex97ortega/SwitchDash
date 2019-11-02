@@ -5,10 +5,9 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class HelpGameState extends BaseGameState  {
-    HelpGameState(Game game, GameManager gm, GameManager.BackgroundColor c){
+    HelpGameState(Game game, GameManager gm){
         super(game,gm);
-        color = c;
-        buttonCancel = new Button(game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.CANCEL);
+        buttonCancel = new Button(Button.Position.RIGHT,_gm,GameManager.Buttons.CANCEL);
     }
 
     @Override
@@ -18,7 +17,7 @@ public class HelpGameState extends BaseGameState  {
     @Override
     public void render() {
         super.render();
-        screen.render(color);
+        screen.render(_gm.getColor());
 
         // HOW TO PLAY
         Image img = _gm.getImage(GameManager.Images.HOWTOPLAY);
@@ -38,9 +37,10 @@ public class HelpGameState extends BaseGameState  {
                 new Rect(0,0,img2.getWidth(),img2.getHeight()), 1.f);
 
         // TapToPlay
+        img = _gm.getImage(GameManager.Images.TAPTOPLAY);
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
         y += (int)(img2.getHeight()/1.4f)+10;
-        screen.drawTapToPlay(x,y);
+        screen.drawAlphaImage(x,y,img);
 
         buttonCancel.render(_game);
     }
@@ -48,7 +48,7 @@ public class HelpGameState extends BaseGameState  {
     @Override
     public void onPress(int x, int y) {
         if(buttonCancel.inside(x,y)){
-            _game.changeGameState(new StartGameState(_game,_gm, color));
+            _game.changeGameState(new StartGameState(_game,_gm));
             return;
         }
         // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
@@ -56,5 +56,4 @@ public class HelpGameState extends BaseGameState  {
     }
 
     private Button buttonCancel;
-    private GameManager.BackgroundColor color;
 }

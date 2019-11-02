@@ -5,12 +5,12 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class StartGameState extends BaseGameState {
-    StartGameState(Game game, GameManager gm,GameManager.BackgroundColor c){
+    StartGameState(Game game, GameManager gm){
         super(game,gm);
         buttons = new Button[2];
-        color=c;
-        buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
-        buttons[1] = new Button(game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
+        buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        buttons[1] = new Button(Button.Position.RIGHT,_gm,GameManager.Buttons.HELP);
+        _gm.setInitialVelocity();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class StartGameState extends BaseGameState {
     @Override
     public void render() {
         super.render();
-        screen.render(color);
+        screen.render(_gm.getColor());
 
         // logo
         Image img = _gm.getImage(GameManager.Images.LOGO);
@@ -33,8 +33,9 @@ public class StartGameState extends BaseGameState {
         // tap to play
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        y = _game.getGraphics().getHeight()/2-(img.getHeight()/2);
-        screen.drawTapToPlay(x,y);
+        y = _game.getGraphics().getHeight()/2-(img.getHeight()/2) +150;
+
+        screen.drawAlphaImage(x,y,img);
 
         // buttons
         for (Button b:
@@ -48,7 +49,7 @@ public class StartGameState extends BaseGameState {
         for (Button b:
                 buttons) {
             if(b.inside(x,y)){
-                buttonClicked(b.getType());
+                _gm.buttonClicked(b);
                 return;
             }
         }
@@ -56,17 +57,5 @@ public class StartGameState extends BaseGameState {
         _game.changeGameState(new GamePlayState(_game,_gm));
     }
 
-    private void buttonClicked(GameManager.Buttons type){
-        switch (type){
-            case SOUND_ON:
-                break;
-            case HELP:
-                _game.changeGameState(new HelpGameState(_game,_gm,color));
-                break;
-            default:
-                break;
-        }
-    }
     private Button[] buttons;
-    private GameManager.BackgroundColor color;
 }

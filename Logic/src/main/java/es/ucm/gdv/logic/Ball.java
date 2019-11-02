@@ -14,9 +14,9 @@ public class Ball {
 
         double rand = (Math.random());
         if(rand>0.5)
-            state = Color.BLACK;
+            state = Player.Color.BLACK;
         else
-            state = Color.WHITE;
+            state = Player.Color.WHITE;
     }
 
     public boolean update(double elapsedTime){
@@ -31,35 +31,35 @@ public class Ball {
     public void render(Game game){
         // para cambiar entre player blanco y negro
         int clipY = 0;
-        if(state == Color.BLACK)
+        if(state == Player.Color.BLACK)
             clipY = _img.getHeight()/2;
 
         int _x = game.getGraphics().getWidth()/2-((_img.getWidth()/10)/2);
 
         game.getGraphics().drawImage(_img,
                 new Rect(_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
-                new Rect(0,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
+                new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
     }
 
-    public void regenerate(){
+    public void regenerate(Player.Color lastColor){
         double rand = (Math.random());
-        if(rand>0.5)
-            state = Color.BLACK;
-        else
-            state = Color.WHITE;
+        // 70% de posibilidad de que salga del mismo color que la bola anterior
+        if(rand > 0.3)
+            state = lastColor;
+        else{
+            if(lastColor == Player.Color.BLACK)
+                state = Player.Color.WHITE;
+            else
+                state = Player.Color.BLACK;
+        }
         _y = initialY;
     }
-    public int getColor(){return state.ordinal();}
+    public Player.Color getColor(){return state;}
 
     private float _y;
     private final int initialY = -395*2 -200;
     private final int finalY = 395*2 -200;
     private Image _img;
-    private Color state;
+    private Player.Color state;
     private GameManager _gm;
-
-    private enum Color{
-        BLACK,
-        WHITE
-    }
 }

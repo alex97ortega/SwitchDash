@@ -10,6 +10,7 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
         _game = game;
         _gm = gm;
         screen = new Screen(_game.getGraphics().getWidth(), _game.getGraphics().getHeight(), _game.getGraphics(), _gm);
+        screen.doFlashEffect();
     }
     @Override
     public void update(double elapsedTime) {

@@ -28,13 +28,13 @@ public class Player {
             state = Color.WHITE;
         else state = Color.BLACK;
     }
-    public int getColor(){return state.ordinal();}
+    public Color getColor(){return state;}
 
     int _y = 700;
     private Image _img;
     private Color state;
 
-    private enum Color{
+    public enum Color{
         BLACK,
         WHITE
     }

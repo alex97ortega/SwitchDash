@@ -16,7 +16,8 @@ public class Screen {
 
         arrow = gm.getImage(GameManager.Images.ARROWS);
 
-        alpha=0;
+        alpha = 0;
+        alphaFlash = 0;
         alphaSum=true;
     }
 
@@ -38,6 +39,9 @@ public class Screen {
             alpha += 2*elapsedTime;
         else
             alpha -= 2*elapsedTime;
+
+        if(alphaFlash > 0)
+            alphaFlash-= 3*elapsedTime;
     }
     public void render(GameManager.BackgroundColor color ){
         // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
@@ -48,8 +52,10 @@ public class Screen {
 
 
         drawFondo(color);
-        //drawFondoGamePlay(color);
+        drawFondoGamePlay(color);
         drawArrows();
+        if(alphaFlash>0)
+            drawFlashEffect(alphaFlash);
     }
 
     private void drawFondo(GameManager.BackgroundColor color){
@@ -86,8 +92,6 @@ public class Screen {
         }
     }
     // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
-    // Aunque no tiene mucho sentido, porque es exactamente del mismo color que el drawFondo()
-    // y baja el rendimiento. Pero ahí lo dejo, por siaca.
     private void drawFondoGamePlay(GameManager.BackgroundColor color){
         Image fondo = _gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
@@ -110,8 +114,6 @@ public class Screen {
         // dibujamos 2 imágenes que se irán recolocando arriba de la pantalla
         // al llegar alfinal de la misma
 
-        // la imagen es demasiado grande, si la pinto con su tamaño en lugar de
-        // con tamaño height, baja el rendimiento
         _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
@@ -121,13 +123,26 @@ public class Screen {
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
 
     }
-    public void drawTapToPlay(int x, int y){
-        Image img = _gm.getImage(GameManager.Images.TAPTOPLAY);
+    public void drawAlphaImage(int x, int y, Image img){
         _graphics.drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                 new Rect(0,0,img.getWidth(),img.getHeight()), alpha);
     }
-    public  void drawNumber(int x, int y, int num){
+    public void drawScore(int x, int y, int num){
+        //suponemos que el score nunca va a pasar de 999
+        if(num > 99){
+            drawNumber(x-90,y, num/100);
+            drawNumber(x-20,y, num/10);
+            drawNumber(x+50,y, num%10);
+        }
+        else if(num > 9){
+            drawNumber(x-40,y, num/10);
+            drawNumber(x+30,y, num%10);
+        }
+        else
+            drawNumber(x,y, num%10);
+    }
+    private  void drawNumber(int x, int y, int num){
         Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
         int clipx = (imgScore.getWidth()/15)*(7 + num);
         int clipy = (imgScore.getHeight()/7)*3;
@@ -158,6 +173,18 @@ public class Screen {
                     new Rect(clipx * positions[i].getX(),clipy* positions[i].getY(),imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
         }
     }
+    private void drawFlashEffect(float alpha){
+        Image fondo = _gm.getImage(GameManager.Images.WHITE);
+
+        for (int i=0; i<_width;i+=fondo.getWidth()){ // ancho
+            for (int j=0; j<_height;j+=fondo.getHeight()){ // alto
+                _graphics.drawImage
+                        (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
+                                new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);
+            }
+        }
+    }
+    public void doFlashEffect(){ alphaFlash = 1.f;}
     public int getWidth() {
         return _width;
     }
@@ -171,6 +198,7 @@ public class Screen {
     private Image arrow;
 
     float alpha;
+    float alphaFlash;
     boolean alphaSum;
 
     private GameManager _gm;
