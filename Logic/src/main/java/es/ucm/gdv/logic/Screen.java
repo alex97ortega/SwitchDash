@@ -2,6 +2,7 @@ package es.ucm.gdv.logic;
 
 import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Image;
+import es.ucm.gdv.engine.Point;
 import es.ucm.gdv.engine.Rect;
 
 // de momento esta clase sólo va a pintar los elementos que se pinten en todos los estados
@@ -125,6 +126,37 @@ public class Screen {
         _graphics.drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                 new Rect(0,0,img.getWidth(),img.getHeight()), alpha);
+    }
+    public  void drawNumber(int x, int y, int num){
+        Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
+        int clipx = (imgScore.getWidth()/15)*(7 + num);
+        int clipy = (imgScore.getHeight()/7)*3;
+
+        if(num > 7){
+            clipx = (imgScore.getWidth()/15)*(num -8);
+            clipy = (imgScore.getHeight()/7) *4;
+
+        }
+        _graphics.drawImage(imgScore,
+                new Rect(x,y,imgScore.getWidth()/15,imgScore.getHeight()/7),
+                new Rect(clipx,clipy,imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
+    }
+    public void drawText(int x, int y, String text){
+        Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
+        int clipx = (imgScore.getWidth()/15);
+        int clipy = (imgScore.getHeight()/7);
+
+        int charA = 97; // el char A corresponde con el int 97
+
+        Point[] positions = new Point[text.length()];
+
+        for (int i =0; i< positions.length; i++){
+            int letra = (int)text.charAt(i) - charA;
+            positions[i] = new Point(letra%15, letra /15);
+            _graphics.drawImage(imgScore,
+                    new Rect(x + (i *70),y,imgScore.getWidth()/15,imgScore.getHeight()/7),
+                    new Rect(clipx * positions[i].getX(),clipy* positions[i].getY(),imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
+        }
     }
     public int getWidth() {
         return _width;

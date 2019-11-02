@@ -30,7 +30,7 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
 
     @Override
     public void render() {
-        screen.render(GameManager.BackgroundColor.GREEN);
+
     }
     @Override
     public void onPress(int x, int y){

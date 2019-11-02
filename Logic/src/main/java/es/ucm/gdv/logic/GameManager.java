@@ -11,7 +11,7 @@ public class GameManager {
     public void init(String[] imagePaths)
     {
         initSprites(imagePaths);
-        _game.pushGameState(new StartGameState(_game, this));
+        _game.pushGameState(new StartGameState(_game, this,BackgroundColor.GREEN));
     }
 
     private void initSprites(String[] imagePaths)

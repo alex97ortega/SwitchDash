@@ -5,9 +5,10 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class StartGameState extends BaseGameState {
-    StartGameState(Game game, GameManager gm){
+    StartGameState(Game game, GameManager gm,GameManager.BackgroundColor c){
         super(game,gm);
         buttons = new Button[2];
+        color=c;
         buttons[0] = new Button(30,100,_gm,GameManager.Buttons.SOUND_ON);
         buttons[1] = new Button(game.getGraphics().getWidth()-170,100,_gm,GameManager.Buttons.HELP);
     }
@@ -19,6 +20,7 @@ public class StartGameState extends BaseGameState {
     @Override
     public void render() {
         super.render();
+        screen.render(color);
 
         // logo
         Image img = _gm.getImage(GameManager.Images.LOGO);
@@ -59,11 +61,12 @@ public class StartGameState extends BaseGameState {
             case SOUND_ON:
                 break;
             case HELP:
-                _game.changeGameState(new HelpGameState(_game,_gm));
+                _game.changeGameState(new HelpGameState(_game,_gm,color));
                 break;
             default:
                 break;
         }
     }
     private Button[] buttons;
+    private GameManager.BackgroundColor color;
 }
