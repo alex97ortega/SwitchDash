@@ -1,6 +1,7 @@
 package com.example.engineandroid;
 
 import es.ucm.gdv.engine.Image;
+import es.ucm.gdv.engine.Rect;
 
 public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
@@ -14,7 +15,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
     }
     @Override
-    public void drawImage(Image img, int x, int y){
+    public void drawImage(Image img, Rect scr, Rect clip, float alpha){
 
     }
 

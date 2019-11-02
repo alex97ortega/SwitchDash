@@ -7,4 +7,8 @@ public class AndroidInput implements es.ucm.gdv.engine.Input{
     public List<TouchEvent> getTouchEvents() {
         return null;
     }
+    @Override
+    public void deleteEvents() {
+
+    }
 }
