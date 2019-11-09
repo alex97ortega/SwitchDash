@@ -50,7 +50,6 @@ public class Screen {
         _width = _graphics.getWidth();
         _height = _graphics.getHeight();
 
-
         drawFondo(color);
         drawFondoGamePlay(color);
         drawArrows();
@@ -61,31 +60,31 @@ public class Screen {
     private void drawFondo(GameManager.BackgroundColor color){
         switch (color){
             case GREEN:
-                _graphics.clear( 0x41a85f);
+                _graphics.clear( 0xFF41a85f);
                 break;
             case GREENISH_BLUE:
-                _graphics.clear( 0x00a885);
+                _graphics.clear( 0xFF00a885);
                 break;
             case CYAN:
-                _graphics.clear( 0x3d8eb9);
+                _graphics.clear( 0xFF3d8eb9);
                 break;
             case LIGHT_BLUE:
-                _graphics.clear( 0x2969b0);
+                _graphics.clear( 0xFF2969b0);
                 break;
             case PURPLE:
-                _graphics.clear( 0x553982);
+                _graphics.clear( 0xFF553982);
                 break;
             case DARK_BLUE:
-                _graphics.clear( 0x28324e);
+                _graphics.clear( 0xFF28324e);
                 break;
             case ORANGE:
-                _graphics.clear( 0xf37934);
+                _graphics.clear( 0xFFf37934);
                 break;
             case RED:
-                _graphics.clear( 0xd14b41);
+                _graphics.clear( 0xFFd14b41);
                 break;
             case BEIGE:
-                _graphics.clear( 0x75706b);
+                _graphics.clear( 0xFF75706b);
                 break;
             default:
                 break;
