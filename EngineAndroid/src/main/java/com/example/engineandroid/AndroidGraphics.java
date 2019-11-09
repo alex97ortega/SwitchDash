@@ -54,7 +54,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         android.graphics.Rect _src = new android.graphics.Rect(scr.getX(), scr.getY(), scr.getW(), scr.getH());
         android.graphics.Rect _clip = new android.graphics.Rect(clip.getX(), clip.getY(), clip.getW(), clip.getH());
 
-        _canvas.drawBitmap(((AndroidImage)img).getImg(), _src, _clip, null);
+        _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, null);
     }
 
     @Override

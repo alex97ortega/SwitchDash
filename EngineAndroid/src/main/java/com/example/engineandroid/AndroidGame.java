@@ -15,7 +15,7 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
     public AndroidGame(Activity activity, AssetManager assetManager){
         super(activity);
         _graphics = new AndroidGraphics(this, assetManager);
-        _input = new AndroidInput();
+        _input = new AndroidInput(this);
         states = new Stack<GameState>();
     }
 
