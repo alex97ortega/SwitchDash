@@ -32,15 +32,9 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
     @Override
     public void run() {
         if (_renderThread != Thread.currentThread()) {
-            // ¿¿Quién es el tuercebotas que está llamando al
-            // run() directamente?? Programación defensiva
-            // otra vez, con excepción, por merluzo.
             throw new RuntimeException("run() should not be called directly");
         }
 
-        // Antes de saltar a la simulación, confirmamos que tenemos
-        // un tamaño mayor que 0. Si la hebra se pone en marcha
-        // muy rápido, la vista podría todavía no estar inicializada.
         while(_running && getWidth() == 0)
             // Espera activa. Sería más elegante al menos dormir un poco.
             ;

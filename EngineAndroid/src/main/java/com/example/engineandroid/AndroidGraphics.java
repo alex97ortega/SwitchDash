@@ -3,6 +3,7 @@ package com.example.engineandroid;
 import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.SurfaceView;
 
 import java.io.IOException;
@@ -16,7 +17,8 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
     public AndroidGraphics(SurfaceView surfaceView, AssetManager assetManager){
         _assetManager = assetManager;
         _surfaceView = surfaceView;
-        _canvas = _surfaceView.getHolder().lockCanvas();
+        _canvas = _surfaceView.getHolder().lockCanvas();//lockHardwareCanvas()
+        _paint = new Paint();
     }
     @Override
     public Image newImage(String name) {
@@ -46,15 +48,25 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public void clear(int color){
-        _canvas = _surfaceView.getHolder().lockCanvas();
+        _canvas = _surfaceView.getHolder().lockCanvas(); //lockHardwareCanvas()
         _canvas.drawColor(color); // ARGB
     }
     @Override
     public void drawImage(Image img, Rect scr, Rect clip, float alpha){
-        android.graphics.Rect _src = new android.graphics.Rect(scr.getX(), scr.getY(), scr.getW(), scr.getH());
-        android.graphics.Rect _clip = new android.graphics.Rect(clip.getX(), clip.getY(), clip.getW(), clip.getH());
+        // para el alpha
+        // pequeño control para que no casque el setAlpha
+        int finalAlpha;
+        if (alpha > 1.f) finalAlpha = 255;
+        else if (alpha < 0) finalAlpha = 0;
+        else finalAlpha = (int)(alpha*255);
+        _paint.setAlpha(finalAlpha);
 
-        _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, null);
+        android.graphics.Rect _src =  new android.graphics.Rect(scr.getA().getX(), scr.getA().getY(),
+                                                                scr.getB().getX(), scr.getB().getY());
+        android.graphics.Rect _clip = new android.graphics.Rect(clip.getA().getX(), clip.getA().getY(),
+                                                                clip.getB().getX(), clip.getB().getY());
+
+        _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, _paint);
     }
 
     @Override
@@ -75,7 +87,9 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
     {
         _surfaceView.getHolder().unlockCanvasAndPost(_canvas);
     }
+
     private AssetManager _assetManager ;
     private SurfaceView _surfaceView;
     private Canvas _canvas;
+    private Paint _paint;
 }
