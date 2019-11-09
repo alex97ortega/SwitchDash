@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
         resourcesPaths[11] = "tapToPlay.png";
         resourcesPaths[12] = "white.png";
 
-        gm.init(resourcesPaths);
         // Preparamos el contenido de la actividad.
         setContentView(game);
+        gm.init(resourcesPaths);
     }
 
     @Override

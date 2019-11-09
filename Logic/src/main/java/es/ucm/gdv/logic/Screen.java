@@ -23,8 +23,8 @@ public class Screen {
 
     public void update(double elapsedTime){
         posYarrows += (_gm.getGameVelocity()-46)*elapsedTime;
-        if(posYarrows >= arrow.getHeight())
-            posYarrows = 0;
+        if(posYarrows >= 0)
+            posYarrows -= pixelsPatronArrows;
 
         // alpha para el tapToPlay
         if(alpha <= 0){
@@ -51,7 +51,7 @@ public class Screen {
         _height = _graphics.getHeight();
 
         drawFondo(color);
-        drawFondoGamePlay(color);
+        //drawFondoGamePlay(color);
         drawArrows();
         if(alphaFlash>0)
             drawFlashEffect(alphaFlash);
@@ -91,6 +91,7 @@ public class Screen {
         }
     }
     // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
+    // por ahora no lo usamos ya que es pura estética y baja el rendimiento para android
     private void drawFondoGamePlay(GameManager.BackgroundColor color){
         Image fondo = _gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
@@ -110,15 +111,8 @@ public class Screen {
     private void drawArrows(){
         int x = _width/2-(arrow.getWidth()/2);
 
-        // dibujamos 2 imágenes que se irán recolocando arriba de la pantalla
-        // al llegar alfinal de la misma
-
         _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
-                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
-
-        _graphics.drawImage(arrow,
-                new Rect(x,(int)posYarrows -arrow.getHeight(),arrow.getWidth(),arrow.getHeight()),
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
 
     }
@@ -195,11 +189,13 @@ public class Screen {
     private int _width, _height;
     private float posYarrows = 0;
     private Image arrow;
-
     float alpha;
     float alphaFlash;
     boolean alphaSum;
 
     private GameManager _gm;
     private Graphics _graphics;
+
+    // cada 1228 píxeles se repite el patrón de las flechas, para que quede fluido
+    private final int pixelsPatronArrows = 1228;
 }

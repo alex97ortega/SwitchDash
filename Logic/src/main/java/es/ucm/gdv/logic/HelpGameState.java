@@ -29,11 +29,11 @@ public class HelpGameState extends BaseGameState  {
                 new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
-        x = _game.getGraphics().getWidth()/2-((int)(img2.getWidth()/1.4f)/2);
+        x = _game.getGraphics().getWidth()/2-(img2.getWidth()/2);
         y = _gm.instructionsPosY;
 
         _game.getGraphics().drawImage(img2,
-                new Rect(x,y,(int)(img2.getWidth()/1.4f),(int)(img2.getHeight()/1.4f)),
+                new Rect(x,y,img2.getWidth(),img2.getHeight()),
                 new Rect(0,0,img2.getWidth(),img2.getHeight()), 1.f);
 
         // TapToPlay
