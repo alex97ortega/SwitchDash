@@ -48,9 +48,23 @@ public class GameManager {
     private Game _game;
     private Image[] images;
     private float gameVelocity;
-    private final float initialVelocity = 300;
-    private final float increaseVelocity = 90;
     private GameManager.BackgroundColor color;
+
+    // constantes del juego
+    public final int playerPosY = 1200; // para 1080x1920
+    public final int ballSeparation = 395;
+    public final int numBalls = 4;
+    private final float initialVelocity = 430;
+    private final float increaseVelocity = 90;
+
+    public final int infoPosY = 100;
+    public final int gameOverPosY = 364;
+    public final int howToPlayPosY = 290;
+    public final int instructionsPosY = 768;
+    public final int playAgainPosY = 1396;
+    public final int logoPosY = 356;
+    public final int tapToPlayPosY1 = 950;
+    public final int tapToPlayPosY2 = 1464;
 
     public enum Images{
         ARROWS,

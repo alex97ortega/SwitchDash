@@ -5,10 +5,8 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class Ball {
-    Ball(int y, Game game, GameManager gm){
+    Ball(int numBola, GameManager gm){
         _img =  gm.getImage(GameManager.Images.BALLS);
-
-        _y = y;
 
         _gm = gm;
 
@@ -17,6 +15,11 @@ public class Ball {
             state = Player.Color.BLACK;
         else
             state = Player.Color.WHITE;
+
+        finalY = _gm.playerPosY - _img.getHeight()/2;
+        initialY = finalY - _gm.ballSeparation*_gm.numBalls;
+
+        _y = initialY - _gm.ballSeparation* numBola;
     }
 
     public boolean update(double elapsedTime){
@@ -57,8 +60,8 @@ public class Ball {
     public Player.Color getColor(){return state;}
 
     private float _y;
-    private final int initialY = -395*2 -200;
-    private final int finalY = 395*2 -200;
+    private int initialY;
+    private int finalY;
     private Image _img;
     private Player.Color state;
     private GameManager _gm;

@@ -13,7 +13,8 @@ public class Button {
         _width = _img.getWidth()/GameManager.Buttons.TOTAL_BUTTONS.ordinal();
         _height = _img.getHeight();
         position = pos;
-        _y = 100;
+
+        _y = gm.infoPosY;
     }
 
     public void render(Game game){

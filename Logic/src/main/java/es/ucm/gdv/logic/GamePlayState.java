@@ -5,12 +5,12 @@ import es.ucm.gdv.engine.Game;
 public class GamePlayState extends BaseGameState {
     GamePlayState(Game game, GameManager gm){
         super(game,gm);
-        player = new Player(_game, _gm);
+        player = new Player( _gm);
 
-        balls = new Ball[4]; // sólo va a haber 4 bolas pintándose como máximo
+        balls = new Ball[_gm.numBalls]; // sólo va a haber 4 bolas pintándose como máximo
 
         for (int i = 0;i < balls.length; i++){
-            balls[i] = new Ball(-395*i,_game,_gm);
+            balls[i] = new Ball(i,_gm);
         }
         int rdn = (int)(Math.random()*GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         _gm.setColor(GameManager.BackgroundColor.values()[rdn]);
@@ -47,7 +47,7 @@ public class GamePlayState extends BaseGameState {
             b.render(_game);
         }
         int x = _game.getGraphics().getWidth()-160;
-        int y = 100;
+        int y = _gm.infoPosY;
         screen.drawScore(x,y,score);
     }
 

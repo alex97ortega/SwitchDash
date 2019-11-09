@@ -28,7 +28,7 @@ public class GameOverState extends BaseGameState{
         // Game Over
         Image img = _gm.getImage(GameManager.Images.GAMEOVER);
         int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        int y = 250;
+        int y = _gm.gameOverPosY;
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                 new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
@@ -37,13 +37,13 @@ public class GameOverState extends BaseGameState{
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/15/2);
         y = _game.getGraphics().getHeight()/2;
 
-        screen.drawScore(x,y,score);
+        screen.drawScore(x,y-50,score);
         screen.drawText(x-180, y+130, "points");
 
         // Play again
         img = _gm.getImage(GameManager.Images.PLAYAGAIN);
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        y = _game.getGraphics().getHeight()-100;
+        y = _gm.playAgainPosY;
         screen.drawAlphaImage(x,y,img);
 
         // buttons

@@ -5,9 +5,11 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class Player {
-    Player(Game game, GameManager gm){
+    Player(GameManager gm){
         _img =  gm.getImage(GameManager.Images.PLAYERS);
         state = Color.BLACK;
+
+        _y = gm.playerPosY;
     }
 
     public void render(Game game){
@@ -30,9 +32,9 @@ public class Player {
     }
     public Color getColor(){return state;}
 
-    int _y = 700;
     private Image _img;
     private Color state;
+    private int _y;
 
     public enum Color{
         BLACK,

@@ -128,11 +128,11 @@ public class Screen {
                 new Rect(0,0,img.getWidth(),img.getHeight()), alpha);
     }
     public void drawScore(int x, int y, int num){
-        //suponemos que el score nunca va a pasar de 999
+        //suponemos que el score nunca va a pasar de 199
         if(num > 99){
-            drawNumber(x-90,y, num/100);
-            drawNumber(x-20,y, num/10);
-            drawNumber(x+50,y, num%10);
+            drawNumber(x-80,y, num/100);
+            drawNumber(x-10,y, (num-100)/10);
+            drawNumber(x+60,y, num%10);
         }
         else if(num > 9){
             drawNumber(x-40,y, num/10);

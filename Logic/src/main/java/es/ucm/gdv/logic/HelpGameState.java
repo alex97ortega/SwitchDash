@@ -22,7 +22,7 @@ public class HelpGameState extends BaseGameState  {
         // HOW TO PLAY
         Image img = _gm.getImage(GameManager.Images.HOWTOPLAY);
         int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        int y = 40;
+        int y = _gm.howToPlayPosY;
 
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
@@ -30,7 +30,7 @@ public class HelpGameState extends BaseGameState  {
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
         x = _game.getGraphics().getWidth()/2-((int)(img2.getWidth()/1.4f)/2);
-        y = img.getHeight()+50;
+        y = _gm.instructionsPosY;
 
         _game.getGraphics().drawImage(img2,
                 new Rect(x,y,(int)(img2.getWidth()/1.4f),(int)(img2.getHeight()/1.4f)),
@@ -39,7 +39,7 @@ public class HelpGameState extends BaseGameState  {
         // TapToPlay
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
         x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
-        y += (int)(img2.getHeight()/1.4f)+10;
+        y = _gm.tapToPlayPosY2;
         screen.drawAlphaImage(x,y,img);
 
         buttonCancel.render(_game);
