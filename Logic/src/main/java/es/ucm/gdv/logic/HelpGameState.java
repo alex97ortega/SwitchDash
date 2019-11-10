@@ -21,7 +21,7 @@ public class HelpGameState extends BaseGameState  {
 
         // HOW TO PLAY
         Image img = _gm.getImage(GameManager.Images.HOWTOPLAY);
-        int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        int x = _gm.refScreenWidth/2-(img.getWidth()/2);
         int y = _gm.howToPlayPosY;
 
         _game.getGraphics().drawImage(img,
@@ -29,7 +29,7 @@ public class HelpGameState extends BaseGameState  {
                 new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
-        x = _game.getGraphics().getWidth()/2-(img2.getWidth()/2);
+        x = _gm.refScreenWidth/2-(img2.getWidth()/2);
         y = _gm.instructionsPosY;
 
         _game.getGraphics().drawImage(img2,
@@ -38,7 +38,7 @@ public class HelpGameState extends BaseGameState  {
 
         // TapToPlay
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
-        x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        x = _gm.refScreenWidth/2-(img.getWidth()/2);
         y = _gm.tapToPlayPosY2;
         screen.drawAlphaImage(x,y,img);
 
@@ -47,7 +47,7 @@ public class HelpGameState extends BaseGameState  {
 
     @Override
     public void onPress(int x, int y) {
-        if(buttonCancel.inside(x,y)){
+        if(buttonCancel.inside(x,y,_game.getGraphics())){
             _game.changeGameState(new StartGameState(_game,_gm));
             return;
         }

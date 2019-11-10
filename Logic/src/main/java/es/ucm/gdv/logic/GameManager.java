@@ -39,12 +39,24 @@ public class GameManager {
     }
     public Image getImage(Images img){return images[img.ordinal()];}
 
-    public float getGameVelocity(){return gameVelocity;}
+    public float getGameVelocity(){
+        return gameVelocity / _game.getGraphics().getRelationY();
+    }
     public void setInitialVelocity(){gameVelocity = initialVelocity;}
     public void increaseGameVelocity(){gameVelocity += increaseVelocity;}
-    public GameManager.BackgroundColor getColor(){return color;}
-    public void setColor(GameManager.BackgroundColor newColor){ color = newColor;}
 
+    public void setColor(GameManager.BackgroundColor newColor){ color = newColor;}
+    public GameManager.BackgroundColor getColor(){return color;}
+
+    public int getBallSeparation(){
+        return (int)(ballSeparation / _game.getGraphics().getRelationY());
+    }
+    public float getRelationX(){
+        return _game.getGraphics().getRelationX();
+    }
+    public float getRelationY(){
+        return _game.getGraphics().getRelationY();
+    }
     private Game _game;
     private Image[] images;
     private float gameVelocity;
@@ -52,8 +64,8 @@ public class GameManager {
 
     // constantes del juego
     public final int playerPosY = 1200; // para 1080x1920
-    public final int ballSeparation = 395;
     public final int numBalls = 4;
+    private final int ballSeparation = 395;
     private final float initialVelocity = 430;
     private final float increaseVelocity = 90;
 
@@ -65,6 +77,9 @@ public class GameManager {
     public final int logoPosY = 356;
     public final int tapToPlayPosY1 = 950;
     public final int tapToPlayPosY2 = 1464;
+
+    public final int refScreenWidth = 1080;
+    public final int refScreenHeight = 1920;
 
     public enum Images{
         ARROWS,

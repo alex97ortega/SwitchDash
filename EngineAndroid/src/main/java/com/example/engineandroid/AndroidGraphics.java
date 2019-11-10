@@ -79,6 +79,15 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         return _surfaceView.getHeight();
     }
 
+    @Override
+    public float getRelationX(){
+        return getWidth()/(float)refScaleX;
+    }
+    @Override
+    public float getRelationY(){
+        return getHeight()/(float)refScaleY;
+    }
+
     public boolean validSurface()
     {
         return _surfaceView.getHolder().getSurface().isValid();

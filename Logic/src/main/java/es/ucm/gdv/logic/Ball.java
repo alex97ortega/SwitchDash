@@ -17,9 +17,14 @@ public class Ball {
             state = Player.Color.WHITE;
 
         finalY = _gm.playerPosY - _img.getHeight()/2;
-        initialY = finalY - _gm.ballSeparation*_gm.numBalls;
+        initialY = finalY - _gm.getBallSeparation()*_gm.numBalls;
 
-        _y = initialY - _gm.ballSeparation* numBola;
+        _y = initialY - _gm.getBallSeparation()* numBola;
+        _x = _gm.refScreenWidth/2-((_img.getWidth()/10)/2);
+
+        if(_gm.getRelationY()<=0.5f)
+            initialY += _gm.getBallSeparation();
+        initialY += _img.getHeight()/2;
     }
 
     public boolean update(double elapsedTime){
@@ -37,10 +42,8 @@ public class Ball {
         if(state == Player.Color.BLACK)
             clipY = _img.getHeight()/2;
 
-        int _x = game.getGraphics().getWidth()/2-((_img.getWidth()/10)/2);
-
         game.getGraphics().drawImage(_img,
-                new Rect(_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
+                new Rect(_x,_y,_img.getWidth()/10,_img.getHeight()/2),
                 new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
     }
 
@@ -59,7 +62,7 @@ public class Ball {
     }
     public Player.Color getColor(){return state;}
 
-    private float _y;
+    private int _y, _x;
     private int initialY;
     private int finalY;
     private Image _img;

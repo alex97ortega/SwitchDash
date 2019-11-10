@@ -48,7 +48,7 @@ public class SwitchDashPC {
 
     public static void main(String [] args)
     {
-        SwitchDashPC switchDashPC = new SwitchDashPC("SwitchDash", 1080, 1920);
+        SwitchDashPC switchDashPC = new SwitchDashPC("SwitchDash", 1080/2, 1920/2);
         if(!switchDashPC.init())
             return;
         switchDashPC.start();

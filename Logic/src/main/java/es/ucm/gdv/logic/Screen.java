@@ -41,7 +41,7 @@ public class Screen {
             alpha -= 2*elapsedTime;
 
         if(alphaFlash > 0)
-            alphaFlash-= 3*elapsedTime;
+            alphaFlash-= 4*elapsedTime;
     }
     public void render(GameManager.BackgroundColor color ){
         // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
@@ -109,7 +109,7 @@ public class Screen {
         }
     }
     private void drawArrows(){
-        int x = _width/2-(arrow.getWidth()/2);
+        int x =  _gm.refScreenWidth/2-(arrow.getWidth()/2);
 
         _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
@@ -167,12 +167,19 @@ public class Screen {
         }
     }
     private void drawFlashEffect(float alpha){
+        float relationX = _graphics.getWidth()/(float)_graphics.refScaleX;
+        float relationY = _graphics.getHeight()/(float)_graphics.refScaleY;
+
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
-        for (int i=0; i<_width;i+=fondo.getWidth()){ // ancho
-            for (int j=0; j<_height;j+=fondo.getHeight()){ // alto
+        int realW = (int)(((float)fondo.getWidth()) /relationX);
+        int realH = (int)(((float)fondo.getHeight()) /relationY);
+
+
+        for (int i=0; i<_graphics.refScaleX;i+=realW){ // ancho
+            for (int j=0; j<_graphics.refScaleY;j+=realH){ // alto
                 _graphics.drawImage
-                        (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
+                        (fondo, new Rect(i,j,realW,realH),
                                 new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);
             }
         }

@@ -9,6 +9,7 @@ public class Player {
         _img =  gm.getImage(GameManager.Images.PLAYERS);
         state = Color.BLACK;
 
+        _x =  gm.refScreenWidth/2-(_img.getWidth()/2);
         _y = gm.playerPosY;
     }
 
@@ -18,7 +19,6 @@ public class Player {
         if(state == Color.BLACK)
             clipY = _img.getHeight()/2;
 
-        int _x = game.getGraphics().getWidth()/2-(_img.getWidth()/2);
 
         game.getGraphics().drawImage(_img,
                 new Rect(_x,_y,_img.getWidth(),_img.getHeight()/2),
@@ -34,7 +34,7 @@ public class Player {
 
     private Image _img;
     private Color state;
-    private int _y;
+    private int _x,_y;
 
     public enum Color{
         BLACK,

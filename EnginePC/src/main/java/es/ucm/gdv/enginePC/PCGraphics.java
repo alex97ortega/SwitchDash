@@ -68,10 +68,21 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         _graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
                     alpha));
 
+        Rect scaledScr = scale(scr);
 
         _graphics2D.drawImage(tmp,
-                scr.getA().getX(), scr.getA().getY(), scr.getB().getX(), scr.getB().getY(),
+                scaledScr.getA().getX(), scaledScr.getA().getY(), scaledScr.getB().getX(), scaledScr.getB().getY(),
                 clip.getA().getX(), clip.getA().getY(), clip.getB().getX(), clip.getB().getY(),null);
+    }
+
+    private Rect scale( Rect oldScr){
+
+        int newX = (int)(oldScr.getA().getX()*getRelationX());
+        int newY = (int)(oldScr.getA().getY()*getRelationY());
+        int newWidth = (int)(oldScr.getW() * getRelationX());
+        int newHeight = (int)(oldScr.getH()*getRelationY());
+
+        return new Rect(newX, newY, newWidth, newHeight);
     }
     @Override
     public int getWidth() {
@@ -81,6 +92,15 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     @Override
     public int getHeight() {
         return _jFrame.getHeight();
+    }
+
+    @Override
+    public float getRelationX(){
+        return getWidth()/(float)refScaleX;
+    }
+    @Override
+    public float getRelationY(){
+        return getHeight()/(float)refScaleY;
     }
 
     public void setGraphics(){_graphics2D=(Graphics2D)_bufferStrategy.getDrawGraphics();}

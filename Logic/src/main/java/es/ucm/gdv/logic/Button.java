@@ -2,6 +2,7 @@ package es.ucm.gdv.logic;
 
 
 import es.ucm.gdv.engine.Game;
+import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
@@ -14,14 +15,14 @@ public class Button {
         _height = _img.getHeight();
         position = pos;
 
+        if(position == Position.LEFT)
+            _x =30;
+        else
+            _x = gm.refScreenWidth-170;
         _y = gm.infoPosY;
     }
 
     public void render(Game game){
-        if(position == Position.LEFT)
-            _x =30;
-        else
-            _x = game.getGraphics().getWidth()-170;
 
         int cripX = _width * _type.ordinal();
         game.getGraphics().drawImage(_img,
@@ -30,10 +31,23 @@ public class Button {
     }
 
     // check position for clicks
-    public boolean inside(int x, int y){
-        if(x < _x || x > _x +_width )
+    // necesito saber el tamaño de la pantalla para saber
+    // el X  y el Y real, este X es para resolución estándar 1080x1920
+
+    public boolean inside(int x, int y, Graphics graphics){
+
+        float relationX = graphics.getWidth()/(float)graphics.refScaleX;
+        float relationY = graphics.getHeight()/(float)graphics.refScaleY;
+
+        int realX = (int)(_x *relationX);
+        int realY = (int)(_y *relationY);
+
+        int realW = (int)(_width *relationX);
+        int realH = (int)(_height *relationY);
+
+        if(x < realX || x > realX +realW )
             return false;
-        if(y < _y || y > _y +_height)
+        if(y < realY || y > realY +realH)
             return  false;
         return true;
     }

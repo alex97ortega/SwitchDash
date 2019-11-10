@@ -24,7 +24,7 @@ public class StartGameState extends BaseGameState {
 
         // logo
         Image img = _gm.getImage(GameManager.Images.LOGO);
-        int x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        int x =  _gm.refScreenWidth/2-(img.getWidth()/2);
         int y = _gm.logoPosY;
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
@@ -32,7 +32,7 @@ public class StartGameState extends BaseGameState {
 
         // tap to play
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
-        x = _game.getGraphics().getWidth()/2-(img.getWidth()/2);
+        x =  _gm.refScreenWidth/2-(img.getWidth()/2);
         y = _gm.tapToPlayPosY1;
 
         screen.drawAlphaImage(x,y,img);
@@ -48,7 +48,7 @@ public class StartGameState extends BaseGameState {
     public void onPress(int x, int y) {
         for (Button b:
                 buttons) {
-            if(b.inside(x,y)){
+            if(b.inside(x,y, _game.getGraphics())){
                 _gm.buttonClicked(b);
                 return;
             }

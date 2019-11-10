@@ -6,4 +6,9 @@ public interface Graphics {
     void drawImage(Image img, Rect scr, Rect clip, float alpha);
     int getWidth();
     int getHeight();
+    float getRelationX();
+    float getRelationY();
+
+    int refScaleX = 1080;
+    int refScaleY = 1920;
 }
