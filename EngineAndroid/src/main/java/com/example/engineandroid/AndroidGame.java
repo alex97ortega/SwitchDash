@@ -3,6 +3,7 @@ package com.example.engineandroid;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.view.SurfaceView;
+//import android.media.MediaPlayer;
 
 import java.util.Stack;
 
@@ -17,6 +18,8 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
         _graphics = new AndroidGraphics(this, assetManager);
         _input = new AndroidInput(this);
         states = new Stack<GameState>();
+        //Sonido
+        //mp3_player = MediaPlayer.create(this, res.raw. );
     }
 
     @Override
@@ -24,6 +27,8 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
         return _graphics;
     }
 
+    //SONIDO
+    //public MediaPlayer mp3_player;
 
     @Override
     public Input getInput() {
@@ -43,6 +48,9 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
 
         long informePrevio = lastFrameTime; // Informes de FPS
         int frames = 0;
+
+        // SONIDO
+        //mp3_player.start();
 
         // Bucle principal.
         while(_running) {

@@ -61,14 +61,26 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         else finalAlpha = (int)(alpha*255);
         _paint.setAlpha(finalAlpha);
 
-        android.graphics.Rect _src =  new android.graphics.Rect(scr.getA().getX(), scr.getA().getY(),
-                                                                scr.getB().getX(), scr.getB().getY());
+
+        Rect scaledScr = scale(scr);
+
+        android.graphics.Rect _src =  new android.graphics.Rect(scaledScr.getA().getX(), scaledScr.getA().getY(),
+                scaledScr.getB().getX(), scaledScr.getB().getY());
         android.graphics.Rect _clip = new android.graphics.Rect(clip.getA().getX(), clip.getA().getY(),
                                                                 clip.getB().getX(), clip.getB().getY());
 
         _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, _paint);
     }
 
+    private Rect scale( Rect oldScr){
+
+        int newX = (int)(oldScr.getA().getX()*getRelationX());
+        int newY = (int)(oldScr.getA().getY()*getRelationY());
+        int newWidth = (int)(oldScr.getW() * getRelationX());
+        int newHeight = (int)(oldScr.getH()*getRelationY());
+
+        return new Rect(newX, newY, newWidth, newHeight);
+    }
     @Override
     public int getWidth() {
         return _surfaceView.getWidth();
