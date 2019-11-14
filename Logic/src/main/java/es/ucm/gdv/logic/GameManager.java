@@ -49,7 +49,7 @@ public class GameManager {
     public GameManager.BackgroundColor getColor(){return color;}
 
     public int getBallSeparation(){
-        return (int)(ballSeparation / _game.getGraphics().getRelationY());
+        return ballSeparation;
     }
     public float getRelationX(){
         return _game.getGraphics().getRelationX();

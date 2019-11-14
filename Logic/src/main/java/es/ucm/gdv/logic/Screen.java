@@ -204,5 +204,5 @@ public class Screen {
     private Graphics _graphics;
 
     // cada 1228 píxeles se repite el patrón de las flechas, para que quede fluido
-    private final int pixelsPatronArrows = 1228;
+    private final int pixelsPatronArrows = 614;
 }

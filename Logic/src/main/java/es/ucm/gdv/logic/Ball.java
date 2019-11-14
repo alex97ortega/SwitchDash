@@ -21,15 +21,11 @@ public class Ball {
 
         _y = initialY - _gm.getBallSeparation()* numBola;
         _x = _gm.refScreenWidth/2-((_img.getWidth()/10)/2);
-
-        if(_gm.getRelationY()<=0.5f)
-            initialY += _gm.getBallSeparation();
-        initialY += _img.getHeight()/2;
     }
 
     public boolean update(double elapsedTime){
 
-        _y += _gm.getGameVelocity()*elapsedTime;
+        _y +=  _gm.getGameVelocity()*elapsedTime;
         if(_y >= finalY){
             return true; // devuelve true cuando llegue al final
         }
@@ -43,7 +39,7 @@ public class Ball {
             clipY = _img.getHeight()/2;
 
         game.getGraphics().drawImage(_img,
-                new Rect(_x,_y,_img.getWidth()/10,_img.getHeight()/2),
+                new Rect((int)_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
                 new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
     }
 
@@ -62,7 +58,7 @@ public class Ball {
     }
     public Player.Color getColor(){return state;}
 
-    private int _y, _x;
+    private float _y, _x;
     private int initialY;
     private int finalY;
     private Image _img;
