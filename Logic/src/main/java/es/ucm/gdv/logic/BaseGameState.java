@@ -18,8 +18,8 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
         screen.update(elapsedTime);
         if(!_game.getInput().getTouchEvents().isEmpty()){
             // Esta basura está petando a veces y no le veo el sentido
-            // Está como lo tenía yo el año pasado, vamos a esperar a ver si
-            // Pedro Pablo da alguna guía para el input
+            // No me da ninguna pista clara y además parece que es sólo
+            // en el ordenador de mi casa, en los labs no pasa
             for (Input.TouchEvent t:_game.getInput().getTouchEvents() ) {
                 if(t.type == Input.TouchEvent.Type.Pressed){
                     onPress((int)t.x, (int)t.y);

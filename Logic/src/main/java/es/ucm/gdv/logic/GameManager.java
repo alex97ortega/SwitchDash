@@ -40,7 +40,7 @@ public class GameManager {
     public Image getImage(Images img){return images[img.ordinal()];}
 
     public float getGameVelocity(){
-        return gameVelocity / _game.getGraphics().getRelationY();
+        return gameVelocity ;
     }
     public void setInitialVelocity(){gameVelocity = initialVelocity;}
     public void increaseGameVelocity(){gameVelocity += increaseVelocity;}

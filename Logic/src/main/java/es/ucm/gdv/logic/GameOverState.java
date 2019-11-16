@@ -62,12 +62,12 @@ public class GameOverState extends BaseGameState{
                 return;
             }
         }
-        // dejamos un par de segundos sin poder reiniciar partida
+        // dejamos un segundo sin poder reiniciar partida
         // para que el jugador pueda ver el resultado, ya que es probable
         // que si estaba jugando el juego con mucha velocidad haga click sin querer
         // justo al haber cambiado el estado, y no da tiempo a ver el record.
         double currentTime = System.nanoTime()/ 1.0E9;
-        if(currentTime - initialTime > 2)
+        if(currentTime - initialTime > 1)
             _game.changeGameState(new GamePlayState(_game,_gm));
     }
 

@@ -41,7 +41,7 @@ public class Screen {
             alpha -= 2*elapsedTime;
 
         if(alphaFlash > 0)
-            alphaFlash-= 4*elapsedTime;
+            alphaFlash-= 3*elapsedTime;
     }
     public void render(GameManager.BackgroundColor color ){
         // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
@@ -167,19 +167,13 @@ public class Screen {
         }
     }
     private void drawFlashEffect(float alpha){
-        float relationX = _graphics.getWidth()/(float)_graphics.refScaleX;
-        float relationY = _graphics.getHeight()/(float)_graphics.refScaleY;
 
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
-        int realW = (int)(((float)fondo.getWidth()) /relationX);
-        int realH = (int)(((float)fondo.getHeight()) /relationY);
-
-
-        for (int i=0; i<_graphics.refScaleX;i+=realW){ // ancho
-            for (int j=0; j<_graphics.refScaleY;j+=realH){ // alto
+        for (int i=0; i<_graphics.refScaleX;i+=fondo.getWidth()){ // ancho
+            for (int j=0; j<_graphics.refScaleY;j+=fondo.getHeight()){ // alto
                 _graphics.drawImage
-                        (fondo, new Rect(i,j,realW,realH),
+                        (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
                                 new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);
             }
         }
