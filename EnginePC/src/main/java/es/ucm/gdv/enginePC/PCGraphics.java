@@ -68,20 +68,26 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         _graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
                     alpha));
 
-        Rect scaledScr = scale(scr);
+        Rect scaledScr;
+        if(scr.getX() == refScaleX/2 - (scr.getW()/2))
+            scaledScr = scale(scr, true);
+        else
+            scaledScr = scale(scr, false);
 
         _graphics2D.drawImage(tmp,
                 scaledScr.getA().getX(), scaledScr.getA().getY(), scaledScr.getB().getX(), scaledScr.getB().getY(),
                 clip.getA().getX(), clip.getA().getY(), clip.getB().getX(), clip.getB().getY(),null);
     }
 
-    private Rect scale( Rect oldScr){
+    private Rect scale( Rect oldScr, boolean centrado){
 
         int newX = (int)(oldScr.getA().getX()*getRelationX());
         int newY = (int)(oldScr.getA().getY()*getRelationY());
-        int newWidth = (int)(oldScr.getW() * getRelationX());
+        int newWidth = (int)(oldScr.getW() * getRelationY());
         int newHeight = (int)(oldScr.getH()*getRelationY());
 
+        if(centrado)
+            newX = getWidth()/2 - newWidth/2;
         return new Rect(newX, newY, newWidth, newHeight);
     }
     @Override

@@ -114,7 +114,6 @@ public class Screen {
         _graphics.drawImage(arrow,
                 new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
                 new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
-
     }
     public void drawAlphaImage(int x, int y, Image img){
         _graphics.drawImage(img,

@@ -41,7 +41,6 @@ public class PCGame implements es.ucm.gdv.engine.Game{
 
         // Bucle principal
         while(true) {
-
             long currentTime = System.nanoTime();
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
@@ -57,7 +56,6 @@ public class PCGame implements es.ucm.gdv.engine.Game{
 
                 getGameState().update(elapsedTime);
                 // Pintamos el frame con el BufferStrategy
-
                 do {
                     _graphics.setGraphics();
                     try {

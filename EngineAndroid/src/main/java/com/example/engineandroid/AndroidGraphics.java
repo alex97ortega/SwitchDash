@@ -62,7 +62,11 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _paint.setAlpha(finalAlpha);
 
 
-        Rect scaledScr = scale(scr);
+        Rect scaledScr;
+        if(scr.getX() == refScaleX/2 - (scr.getW()/2))
+            scaledScr = scale(scr, true);
+        else
+            scaledScr = scale(scr, false);
 
         android.graphics.Rect _src =  new android.graphics.Rect(scaledScr.getA().getX(), scaledScr.getA().getY(),
                 scaledScr.getB().getX(), scaledScr.getB().getY());
@@ -72,13 +76,15 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, _paint);
     }
 
-    private Rect scale( Rect oldScr){
+    private Rect scale( Rect oldScr,boolean centrado){
 
         int newX = (int)(oldScr.getA().getX()*getRelationX());
         int newY = (int)(oldScr.getA().getY()*getRelationY());
         int newWidth = (int)(oldScr.getW() * getRelationX());
         int newHeight = (int)(oldScr.getH()*getRelationY());
 
+        if(centrado)
+            newX = getWidth()/2 - newWidth/2;
         return new Rect(newX, newY, newWidth, newHeight);
     }
     @Override
