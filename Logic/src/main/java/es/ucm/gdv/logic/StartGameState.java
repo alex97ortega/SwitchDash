@@ -3,7 +3,6 @@ package es.ucm.gdv.logic;
 import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
-import es.ucm.gdv.engine.Sound;
 
 public class StartGameState extends BaseGameState {
     StartGameState(Game game, GameManager gm){

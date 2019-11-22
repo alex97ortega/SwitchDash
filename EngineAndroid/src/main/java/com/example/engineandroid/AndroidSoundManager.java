@@ -12,20 +12,19 @@ public class AndroidSoundManager implements SoundManager {
     @Override
     public Sound loadSound(String name) {
         AndroidSound sonido;
-        try {
-            Uri myUri = Uri.parse(name);
-            sonido = new AndroidSound(MediaPlayer.create(_context,  myUri));
-        }
-        catch (Exception e) {
-            System.out.println("Falla mi uri");
-            return null;
-        }
+        // así deberia ser la forma correcta, pero sigue sin funcionarnos
+        Uri myUri = Uri.parse(name);
+        sonido = new AndroidSound(MediaPlayer.create(_context, myUri));
         return sonido;
     }
 
     @Override
     public void freeSound(Sound sonido) {
         MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
+        if(tmp == null){
+            System.out.println("No hay sonido que liberar");
+            return;
+        }
         tmp.release();
     }
 
@@ -42,6 +41,10 @@ public class AndroidSoundManager implements SoundManager {
     @Override
     public void stopSound(Sound sonido) {
         MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
+        if(tmp == null){
+            System.out.println("No hay sonido que parar");
+            return;
+        }
         tmp.stop();
     }
     private Context _context;

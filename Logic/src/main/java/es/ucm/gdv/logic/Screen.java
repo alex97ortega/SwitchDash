@@ -97,13 +97,13 @@ public class Screen {
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         int height = fondo.getHeight();
 
-        int comienzoX = _width/2-(arrow.getWidth()/2);
+        int comienzoX = _graphics.refScaleX/2-arrow.getWidth()/2;
         int finalX = comienzoX + arrow.getWidth() - width;
 
-        for (int i=comienzoX; i<finalX;i+=width){ // ancho
-            for (int j=0; j<_height;j+=height){ // alto
+        for (int i=comienzoX; i<finalX;i+=(int)(width*_graphics.getRelationY())){ // ancho
+            for (int j=0; j<_graphics.refScaleY;j+=height){ // alto
                 _graphics.drawImage
-                        (fondo, new Rect(i,j,width,height),
+                        (fondo, new Rect(i,j,(int)(width/_graphics.getRelationY()),(int)(height/_graphics.getRelationY())),
                                 new Rect(width*color.ordinal(),0,width,height),1.f);
             }
         }
@@ -149,6 +149,8 @@ public class Screen {
                 new Rect(clipx,clipy,imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
     }
     public void drawText(int x, int y, String text){
+        // el reescalado funciona bien para todos los elementos menos
+        // para el texto,  no lo conseguimos solucionar
         Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
         int clipx = (imgScore.getWidth()/15);
         int clipy = (imgScore.getHeight()/7);
@@ -189,9 +191,9 @@ public class Screen {
     private int _width, _height;
     private float posYarrows = 0;
     private Image arrow;
-    float alpha;
-    float alphaFlash;
-    boolean alphaSum;
+    private float alpha;
+    private float alphaFlash;
+    private boolean alphaSum;
 
     private GameManager _gm;
     private Graphics _graphics;
