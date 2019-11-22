@@ -3,12 +3,16 @@ package es.ucm.gdv.logic;
 import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
+import es.ucm.gdv.engine.Sound;
 
 public class StartGameState extends BaseGameState {
     StartGameState(Game game, GameManager gm){
         super(game,gm);
         buttons = new Button[2];
-        buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        if(_gm.hasSound())
+            buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        else
+            buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_OFF);
         buttons[1] = new Button(Button.Position.RIGHT,_gm,GameManager.Buttons.HELP);
         _gm.setInitialVelocity();
     }
@@ -56,6 +60,5 @@ public class StartGameState extends BaseGameState {
         // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
         _game.changeGameState(new GamePlayState(_game,_gm));
     }
-
     private Button[] buttons;
 }

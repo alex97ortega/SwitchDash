@@ -17,23 +17,6 @@ public class SwitchDashPC {
         pcGame = new PCGame(_jFrame);
 
         if (!pcGame.init()) return false;
-
-        resourcesPaths = new String[numResources];
-
-        resourcesPaths[0]  = "./Sprites/arrowsBackground.png";
-        resourcesPaths[1]  = "./Sprites/backgrounds.png";
-        resourcesPaths[2]  = "./Sprites/balls.png";
-        resourcesPaths[3]  = "./Sprites/buttons.png";
-        resourcesPaths[4]  = "./Sprites/gameOver.png";
-        resourcesPaths[5]  = "./Sprites/howToPlay.png";
-        resourcesPaths[6]  = "./Sprites/instructions.png";
-        resourcesPaths[7]  = "./Sprites/playAgain.png";
-        resourcesPaths[8]  = "./Sprites/players.png";
-        resourcesPaths[9]  = "./Sprites/scoreFont.png";
-        resourcesPaths[10] = "./Sprites/switchDashLogo.png";
-        resourcesPaths[11] = "./Sprites/tapToPlay.png";
-        resourcesPaths[12] = "./Sprites/white.png";
-
         return true;
     }
 
@@ -41,7 +24,7 @@ public class SwitchDashPC {
 
         // inicializar lógica
         GameManager gm = new GameManager(pcGame);
-        gm.init(resourcesPaths);
+        gm.init();
 
         pcGame.run();
     }
@@ -55,7 +38,4 @@ public class SwitchDashPC {
     }
     protected PCGame pcGame;
     protected JFrame _jFrame;
-
-    private String[] resourcesPaths;
-    private final int numResources = 13;
 }

@@ -9,7 +9,10 @@ public class GameOverState extends BaseGameState{
         super(game,gm);
         buttons = new Button[2];
         score = sc;
-        buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        if(_gm.hasSound())
+            buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_ON);
+        else
+            buttons[0] = new Button(Button.Position.LEFT,_gm,GameManager.Buttons.SOUND_OFF);
         buttons[1] = new Button(Button.Position.RIGHT,_gm,GameManager.Buttons.HELP);
 
         _gm.setInitialVelocity();

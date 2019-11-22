@@ -7,13 +7,14 @@ import javax.swing.JFrame;
 import es.ucm.gdv.engine.GameState;
 import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Input;
+import es.ucm.gdv.engine.SoundManager;
 
 public class PCGame implements es.ucm.gdv.engine.Game{
 
     public PCGame(JFrame jFrame){
         _graphics = new PCGraphics(jFrame);
         _input = new PCInput(jFrame);
-
+        _soundManager = new PCSoundManager();
         jFrame.setIgnoreRepaint(true);
         jFrame.setVisible(true);
     }
@@ -30,6 +31,9 @@ public class PCGame implements es.ucm.gdv.engine.Game{
     public Input getInput() {
         return _input;
     }
+
+    @Override
+    public SoundManager getSoundManager(){return _soundManager;}
 
     @Override
     public void run() {
@@ -55,6 +59,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
                 ++frames;*/
 
                 getGameState().update(elapsedTime);
+
                 // Pintamos el frame con el BufferStrategy
                 do {
                     _graphics.setGraphics();
@@ -92,9 +97,9 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         if (!states.empty())
             states.pop();
     }
-
     private PCGraphics _graphics;
     private PCInput _input;
+    private PCSoundManager _soundManager;
     private Stack<GameState> states;
 }
 

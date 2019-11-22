@@ -16,25 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
         game = new AndroidGame(this, getAssets());
         gm = new GameManager(game);
-        String[] resourcesPaths = new String[numResources];
-
-        resourcesPaths[0]  = "arrowsBackground.png";
-        resourcesPaths[1]  = "backgrounds.png";
-        resourcesPaths[2]  = "balls.png";
-        resourcesPaths[3]  = "buttons.png";
-        resourcesPaths[4]  = "gameOver.png";
-        resourcesPaths[5]  = "howToPlay.png";
-        resourcesPaths[6]  = "instructions.png";
-        resourcesPaths[7]  = "playAgain.png";
-        resourcesPaths[8]  = "players.png";
-        resourcesPaths[9]  = "scoreFont.png";
-        resourcesPaths[10] = "switchDashLogo.png";
-        resourcesPaths[11] = "tapToPlay.png";
-        resourcesPaths[12] = "white.png";
 
         // Preparamos el contenido de la actividad.
         setContentView(game);
-        gm.init(resourcesPaths);
+        gm.init();
     }
 
     @Override
@@ -53,5 +38,4 @@ public class MainActivity extends AppCompatActivity {
     protected AndroidGame game;
     protected GameManager gm;
 
-    final int numResources = 13;
 }

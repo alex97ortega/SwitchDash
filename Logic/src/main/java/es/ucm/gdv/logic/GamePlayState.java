@@ -1,6 +1,7 @@
 package es.ucm.gdv.logic;
 
 import es.ucm.gdv.engine.Game;
+import es.ucm.gdv.engine.Sound;
 
 public class GamePlayState extends BaseGameState {
     GamePlayState(Game game, GameManager gm){
@@ -16,6 +17,7 @@ public class GamePlayState extends BaseGameState {
         _gm.setColor(GameManager.BackgroundColor.values()[rdn]);
 
         score = 0;
+
     }
 
     @Override
@@ -24,12 +26,15 @@ public class GamePlayState extends BaseGameState {
         // update de las bolas
         for(int i = 0; i<balls.length; i++){
             if(balls[i].update(elapsedTime)){ // si llega hasta el player vemos el color
+                sonidoBola(balls[i].getColor());
+
                 if(balls[i].getColor() != player.getColor()) // game over si el color es distinto
                     _game.changeGameState(new GameOverState(_game,_gm,score));
                 else{
                     int previousBall = i-1;
                     if(i==0)
                         previousBall = balls.length-1;
+
                     balls[i].regenerate(balls[previousBall].getColor());
                     score++;
                     if(score % 10 == 0)
@@ -37,7 +42,18 @@ public class GamePlayState extends BaseGameState {
                 }
             }
         }
+    }
+    private void sonidoBola(Player.Color color)
+    {
+        if(_gm.hasSound()){
+            Sound  sound;
+            if( color == Player.Color.BLACK)
+                sound = _gm.getSound(GameManager.Sounds.SOUND_BLACK);
+            else
+                sound = _gm.getSound(GameManager.Sounds.SOUND_WHITE);
 
+            _game.getSoundManager().playSound(sound);
+        }
     }
     @Override
     public void render() {

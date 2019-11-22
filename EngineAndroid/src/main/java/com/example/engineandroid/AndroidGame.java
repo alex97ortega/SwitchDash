@@ -3,7 +3,6 @@ package com.example.engineandroid;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.view.SurfaceView;
-//import android.media.MediaPlayer;
 
 import java.util.Stack;
 
@@ -11,29 +10,28 @@ import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.GameState;
 import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Input;
+import es.ucm.gdv.engine.SoundManager;
 
 public class AndroidGame extends SurfaceView implements Game,Runnable {
     public AndroidGame(Activity activity, AssetManager assetManager){
         super(activity);
         _graphics = new AndroidGraphics(this, assetManager);
         _input = new AndroidInput(this);
+        _soundManager = new AndroidSoundManager(activity);
         states = new Stack<GameState>();
-        //Sonido
-        //mp3_player = MediaPlayer.create(this, res.raw. );
     }
 
     @Override
     public Graphics getGraphics() {
         return _graphics;
     }
-
-    //SONIDO
-    //public MediaPlayer mp3_player;
-
     @Override
     public Input getInput() {
         return _input;
     }
+    @Override
+    public SoundManager getSoundManager(){return _soundManager;}
+
     @Override
     public void run() {
         if (_renderThread != Thread.currentThread()) {
@@ -48,9 +46,6 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
 
         long informePrevio = lastFrameTime; // Informes de FPS
         int frames = 0;
-
-        // SONIDO
-        //mp3_player.start();
 
         // Bucle principal.
         while(_running) {
@@ -141,5 +136,6 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
 
     private AndroidGraphics _graphics;
     private  AndroidInput _input;
+    private  AndroidSoundManager _soundManager;
     private Stack<GameState> states;
 }
