@@ -26,6 +26,8 @@ public class GamePlayState extends BaseGameState {
         // update de las bolas
         for(int i = 0; i<balls.length; i++){
             if(balls[i].update(elapsedTime)){ // si llega hasta el player vemos el color
+
+                particleSystem = new ParticleSystem(balls[i].getColor(), _gm);
                 sonidoBola(balls[i].getColor());
 
                 if(balls[i].getColor() != player.getColor()) // game over si el color es distinto
@@ -42,6 +44,8 @@ public class GamePlayState extends BaseGameState {
                 }
             }
         }
+        if(particleSystem != null)
+            particleSystem.update(elapsedTime);
     }
     private void sonidoBola(Player.Color color)
     {
@@ -65,6 +69,9 @@ public class GamePlayState extends BaseGameState {
         int x = _gm.refScreenWidth-160;
         int y = _gm.infoPosY;
         screen.drawScore(x,y,score);
+
+        if(particleSystem != null)
+            particleSystem.render(_game);
     }
 
     @Override
@@ -74,6 +81,7 @@ public class GamePlayState extends BaseGameState {
 
     private Player player;
     private Ball[] balls;
+    private ParticleSystem particleSystem;
 
     private int score;
 }
