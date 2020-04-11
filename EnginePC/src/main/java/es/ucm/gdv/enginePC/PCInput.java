@@ -10,12 +10,17 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+// clase gestora del input para PC
 public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseListener, KeyListener {
+
+    // constructora
     PCInput(JFrame jFrame){
         events  = new ArrayList<>();
         jFrame.addMouseListener(this);
         jFrame.addKeyListener(this);
     }
+
+    // llamadas de la lista de eventos
     @Override
     public List<TouchEvent> getTouchEvents() {
         return events;
@@ -24,6 +29,8 @@ public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseLis
     public void  deleteEvents(){
         events.clear();
     }
+
+    // llamadas del mouse, añade el evento que corresponda
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
     }
@@ -50,6 +57,8 @@ public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseLis
 
     private ArrayList<TouchEvent> events;
 
+    // llamadas para teclado, en este caso nos interesa que la tecla Espacio
+    // devuelva el mismo evento que si se hubiera pulsado el ratón
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE)

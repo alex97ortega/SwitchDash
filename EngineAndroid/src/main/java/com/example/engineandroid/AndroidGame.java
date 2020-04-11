@@ -13,6 +13,7 @@ import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.SoundManager;
 
 public class AndroidGame extends SurfaceView implements Game,Runnable {
+    // constructora
     public AndroidGame(Activity activity, AssetManager assetManager){
         super(activity);
         _graphics = new AndroidGraphics(this, assetManager);
@@ -21,6 +22,7 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
         states = new Stack<GameState>();
     }
 
+    // gets de los managers principales del juego
     @Override
     public Graphics getGraphics() {
         return _graphics;
@@ -32,6 +34,7 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
     @Override
     public SoundManager getSoundManager(){return _soundManager;}
 
+    //bucle de juego
     @Override
     public void run() {
         if (_renderThread != Thread.currentThread()) {
@@ -80,6 +83,8 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
 
         } // while
     }
+
+    // llamadas refereidas a la pila de estados
     @Override
     public GameState getGameState() {
         if(states.empty())
@@ -104,15 +109,9 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
         if (!states.empty())
             states.pop();
     }
-    public void resume() {
 
-        if (!_running) {
-            _running = true;
-            _renderThread = new Thread(this);
-            _renderThread.start();
-        }
-    }
 
+    // Pause y resume
     public void pause() {
 
         if (_running) {
@@ -130,7 +129,16 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
 
     } // pause
 
-    //nuevas
+    public void resume() {
+
+        if (!_running) {
+            _running = true;
+            _renderThread = new Thread(this);
+            _renderThread.start();
+        }
+    }
+
+    // variables privadas
     private Thread _renderThread;
     volatile boolean _running = false;
 

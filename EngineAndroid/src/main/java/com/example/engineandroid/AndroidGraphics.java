@@ -12,14 +12,18 @@ import java.io.InputStream;
 import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
+// Manager encargado de la gestión gráfica
 public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
+    // constructora
     public AndroidGraphics(SurfaceView surfaceView, AssetManager assetManager){
         _assetManager = assetManager;
         _surfaceView = surfaceView;
         _canvas = _surfaceView.getHolder().lockCanvas();//lockHardwareCanvas()
         _paint = new Paint();
     }
+
+    // proporcionando una ruta, devuelve la imagen correspondiente si existe
     @Override
     public Image newImage(String name) {
 
@@ -46,11 +50,15 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         return image;
     }
 
+    // clear (limpiar pantalla)
     @Override
     public void clear(int color){
         _canvas = _surfaceView.getHolder().lockCanvas(); //lockHardwareCanvas()
         _canvas.drawColor(color); // ARGB
     }
+    // dibuja una imagen (en este caso un bitmap)
+    // proporcionando la posicion y el tamaño en el Rect scr
+    // y el trozo de imagen que queremos de la imagen completa en el Rect clip
     @Override
     public void drawImage(Image img, Rect scr, Rect clip, float alpha){
         // para el alpha
@@ -58,6 +66,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         int finalAlpha;
         if (alpha > 1.f) finalAlpha = 255;
         else if (alpha < 0) finalAlpha = 0;
+        // se le pasa de 0 a 1 y se convierte de 0 a 255 por comodidad
         else finalAlpha = (int)(alpha*255);
         _paint.setAlpha(finalAlpha);
 
@@ -76,6 +85,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, _paint);
     }
 
+    // devuelve una posicion y tamaño nuevos para el reescalado que haya
     private Rect scale( Rect oldScr,boolean centrado){
 
         int newX = (int)(oldScr.getA().getX()*getRelationX());
@@ -87,6 +97,8 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
             newX = getWidth()/2 - newWidth/2;
         return new Rect(newX, newY, newWidth, newHeight);
     }
+
+    // gets del tamaño de la pantalla
     @Override
     public int getWidth() {
         return _surfaceView.getWidth();
@@ -97,6 +109,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         return _surfaceView.getHeight();
     }
 
+    // gets de la resolución o relación de aspecto
     @Override
     public float getRelationX(){
         return getWidth()/(float)refScaleX;
@@ -106,6 +119,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         return getHeight()/(float)refScaleY;
     }
 
+    // llamadas hechas desde el run
     public boolean validSurface()
     {
         return _surfaceView.getHolder().getSurface().isValid();

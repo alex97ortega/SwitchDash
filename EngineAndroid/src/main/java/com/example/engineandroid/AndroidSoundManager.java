@@ -7,8 +7,12 @@ import android.net.Uri;
 import es.ucm.gdv.engine.Sound;
 import es.ucm.gdv.engine.SoundManager;
 
+// clase gestora del sonido en Android
 public class AndroidSoundManager implements SoundManager {
+    //constructora
     public AndroidSoundManager(Context context){_context = context;}
+
+    // cargar un sonido
     @Override
     public Sound loadSound(String name) {
         AndroidSound sonido;
@@ -18,6 +22,7 @@ public class AndroidSoundManager implements SoundManager {
         return sonido;
     }
 
+    // liberar un sonido
     @Override
     public void freeSound(Sound sonido) {
         MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
@@ -28,6 +33,7 @@ public class AndroidSoundManager implements SoundManager {
         tmp.release();
     }
 
+    // reproducir un sonido
     @Override
     public void playSound(Sound sonido) {
         MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
@@ -38,6 +44,7 @@ public class AndroidSoundManager implements SoundManager {
         tmp.start();
     }
 
+    // parar un sonido
     @Override
     public void stopSound(Sound sonido) {
         MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();

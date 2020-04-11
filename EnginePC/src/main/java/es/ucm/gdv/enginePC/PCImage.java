@@ -2,6 +2,7 @@ package es.ucm.gdv.enginePC;
 
 import java.awt.Image;
 
+// clase Imagen para PC empleando la clase Image de java awt
 public class PCImage implements es.ucm.gdv.engine.Image {
 
     public PCImage(Image image)

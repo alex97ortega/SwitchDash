@@ -2,6 +2,8 @@ package com.example.engineandroid;
 
 import android.graphics.Bitmap;
 
+// clase Imagen para Android, será un Bitmap
+// sólo hace falta constructora y los gets de momento
 public class AndroidImage implements es.ucm.gdv.engine.Image {
     public AndroidImage(Bitmap image)
     {

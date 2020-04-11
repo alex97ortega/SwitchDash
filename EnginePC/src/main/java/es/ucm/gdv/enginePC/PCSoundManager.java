@@ -8,7 +8,10 @@ import javax.sound.sampled.Clip;
 import es.ucm.gdv.engine.Sound;
 import es.ucm.gdv.engine.SoundManager;
 
+// clase que gestiona los sonidos para PC
 public class PCSoundManager implements SoundManager {
+
+    // cargar un sonido
     @Override
     public Sound loadSound(String name) {
         PCSound sonido;
@@ -22,6 +25,7 @@ public class PCSoundManager implements SoundManager {
         return sonido;
     }
 
+    // liberar un sonido
     @Override
     public void freeSound(Sound sonido) {
         try {
@@ -33,6 +37,7 @@ public class PCSoundManager implements SoundManager {
         }
     }
 
+    // reproducir un sonido
     @Override
     public void playSound(Sound sonido) {
         try {
@@ -45,6 +50,7 @@ public class PCSoundManager implements SoundManager {
         }
     }
 
+    // parar un sonido
     @Override
     public void stopSound(Sound sonido) {
         try {

@@ -7,12 +7,15 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+// clase gestora del input para Android
 public class AndroidInput implements es.ucm.gdv.engine.Input, View.OnTouchListener {
+    // constructora
     AndroidInput(SurfaceView surfaceView)
     {
         events = new ArrayList<>();
         surfaceView.setOnTouchListener(this);
     }
+    // llamadas de la lista de eventos
     @Override
     public List<TouchEvent> getTouchEvents() {
         return (ArrayList<TouchEvent>)events.clone();
@@ -23,6 +26,11 @@ public class AndroidInput implements es.ucm.gdv.engine.Input, View.OnTouchListen
     }
     private ArrayList<TouchEvent> events;
 
+    // Añade el evento que corresponda a la lista
+    // los tres eventos posibles son
+    // ACTION_DOWN al pulsar
+    // ACTION_MOVE al mover el dedo mientrasse pulsa
+    // ACTION_UP al levantar el dedo de la pantalla
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {

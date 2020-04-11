@@ -1,5 +1,6 @@
 package es.ucm.gdv.engine;
 
+// interfaz de clase encargada de la gestión gráfica
 public interface Graphics {
     Image newImage(String name);
     void clear(int color);

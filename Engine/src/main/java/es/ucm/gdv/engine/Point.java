@@ -1,5 +1,6 @@
 package es.ucm.gdv.engine;
 
+// clase auxiliar para representar un punto
 public class Point {
     private int x;
     private int y;

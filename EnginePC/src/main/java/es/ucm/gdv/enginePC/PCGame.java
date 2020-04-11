@@ -11,6 +11,7 @@ import es.ucm.gdv.engine.SoundManager;
 
 public class PCGame implements es.ucm.gdv.engine.Game{
 
+    // Constructora. Hacemos new de todos los managers
     public PCGame(JFrame jFrame){
         _graphics = new PCGraphics(jFrame);
         _input = new PCInput(jFrame);
@@ -18,10 +19,13 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         jFrame.setIgnoreRepaint(true);
         jFrame.setVisible(true);
     }
+    // Devuelve si se ha podido inicializar el graphics, por si acaso.
     public boolean init(){
         states = new Stack<GameState>();
         return _graphics.init();
     }
+
+    // gets de los managers principales del juego
     @Override
     public Graphics getGraphics() {
         return _graphics;
@@ -35,6 +39,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
     @Override
     public SoundManager getSoundManager(){return _soundManager;}
 
+    // bucle de juego
     @Override
     public void run() {
 
@@ -73,6 +78,8 @@ public class PCGame implements es.ucm.gdv.engine.Game{
 
         } // while
     }
+
+    // llamadas de la pila de estados
     @Override
     public GameState getGameState() {
         if(states.empty())
@@ -97,6 +104,8 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         if (!states.empty())
             states.pop();
     }
+
+    // variables privadas
     private PCGraphics _graphics;
     private PCInput _input;
     private PCSoundManager _soundManager;

@@ -10,11 +10,17 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+// clase encargada de la gestión gráfica en PC
 public class PCGraphics implements es.ucm.gdv.engine.Graphics {
+
+    // constructora, se le pasa una ventana
 
     public PCGraphics(JFrame jFrame){
         _jFrame = jFrame;
     }
+
+    // Init: debemos devolver si se ha podido inicializar o no el graphics (buffer strategy)
+
     public boolean init(){
         // Intentamos crear el buffer strategy con 2 buffers.
         int tries = 100;
@@ -37,6 +43,9 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
 
         return true;
     }
+
+
+    // proporcionando una ruta, devuelve la imagen correspondiente si existe
     @Override
     public Image newImage(String name) {
         PCImage img;
@@ -50,12 +59,14 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return img;
     }
 
+    // limpiar pantalla
     @Override
     public void clear(int color){
         _graphics2D.setColor(new Color(color));
         _graphics2D.fillRect(0, 0, getWidth(), getHeight());
     }
-    // scr es la superficie en pantalla de lo que queremos dibujr
+
+    // scr es la superficie en pantalla de lo que queremos dibujar
     // clip es el recorte de la imagen que queremos
     @Override
     public void drawImage(Image img, Rect scr, Rect clip, float alpha) {
@@ -79,6 +90,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
                 clip.getA().getX(), clip.getA().getY(), clip.getB().getX(), clip.getB().getY(),null);
     }
 
+    // devuelve una posicion y tamaño nuevos para el reescalado que haya
     private Rect scale( Rect oldScr, boolean centrado){
 
         int newX = (int)(oldScr.getA().getX()*getRelationX());
@@ -90,6 +102,8 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
             newX = getWidth()/2 - newWidth/2;
         return new Rect(newX, newY, newWidth, newHeight);
     }
+
+    // gets del tamaño de la pantalla
     @Override
     public int getWidth() {
         return _jFrame.getWidth();
@@ -100,6 +114,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return _jFrame.getHeight();
     }
 
+    // gets de la resolución o relación de aspecto
     @Override
     public float getRelationX(){
         return getWidth()/(float)refScaleX;
@@ -109,6 +124,7 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return getHeight()/(float)refScaleY;
     }
 
+    // llamadas hechas desde el run
     public void setGraphics(){_graphics2D=(Graphics2D)_bufferStrategy.getDrawGraphics();}
     public void dispose(){
         _bufferStrategy.getDrawGraphics().dispose();
@@ -120,6 +136,6 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     public void show(){_bufferStrategy.show();}
 
     private BufferStrategy _bufferStrategy;
-    private Graphics2D _graphics2D; // para alpha
+    private Graphics2D _graphics2D; // necesario para alpha
     private JFrame _jFrame;
 }
