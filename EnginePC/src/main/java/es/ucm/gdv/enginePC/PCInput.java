@@ -1,6 +1,5 @@
 package es.ucm.gdv.enginePC;
 
-import java.applet.Applet;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -11,7 +10,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 // clase gestora del input para PC
-public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseListener, KeyListener {
+public class PCInput implements es.ucm.gdv.engine.Input, MouseListener, KeyListener {
 
     // constructora
     PCInput(JFrame jFrame){
@@ -20,14 +19,15 @@ public class PCInput extends Applet implements es.ucm.gdv.engine.Input, MouseLis
         jFrame.addKeyListener(this);
     }
 
-    // llamadas de la lista de eventos
+    // obtener la lista de eventos
     @Override
     public List<TouchEvent> getTouchEvents() {
-        return events;
-    }
-    @Override
-    public void  deleteEvents(){
-        events.clear();
+        List<TouchEvent> aux = (ArrayList)events.clone();
+
+        if(!events.isEmpty())
+            events.clear();
+
+        return aux;
     }
 
     // llamadas del mouse, añade el evento que corresponda

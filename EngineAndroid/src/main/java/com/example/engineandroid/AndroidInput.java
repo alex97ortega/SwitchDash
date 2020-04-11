@@ -15,14 +15,16 @@ public class AndroidInput implements es.ucm.gdv.engine.Input, View.OnTouchListen
         events = new ArrayList<>();
         surfaceView.setOnTouchListener(this);
     }
-    // llamadas de la lista de eventos
+
+    // obtener la lista de eventos
     @Override
     public List<TouchEvent> getTouchEvents() {
-        return (ArrayList<TouchEvent>)events.clone();
-    }
-    @Override
-    public void deleteEvents() {
-        events.clear();
+        List<TouchEvent> aux = (ArrayList)events.clone();
+
+        if(!events.isEmpty())
+            events.clear();
+
+        return aux;
     }
     private ArrayList<TouchEvent> events;
 

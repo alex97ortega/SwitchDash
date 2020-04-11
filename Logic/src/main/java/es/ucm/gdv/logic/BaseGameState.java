@@ -1,5 +1,7 @@
 package es.ucm.gdv.logic;
 
+import java.util.List;
+
 import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.Input;
 
@@ -15,18 +17,16 @@ public abstract  class BaseGameState implements es.ucm.gdv.engine.GameState {
     @Override
     public void update(double elapsedTime) {
 
-        screen.update(elapsedTime);
-        if(!_game.getInput().getTouchEvents().isEmpty()){
-            // Esta basura está petando a veces y no le veo el sentido
-            // No me da ninguna pista clara y además parece que es sólo
-            // en el ordenador de mi casa, en los labs no pasa
-            for (Input.TouchEvent t:_game.getInput().getTouchEvents() ) {
+        List<Input.TouchEvent> aux = _game.getInput().getTouchEvents();
+
+        if(!aux.isEmpty()){
+            for (Input.TouchEvent t: aux ) {
                 if(t.type == Input.TouchEvent.Type.Pressed){
                     onPress((int)t.x, (int)t.y);
                 }
             }
         }
-        _game.getInput().deleteEvents();// VACIAR EVENTOS
+        screen.update(elapsedTime);
     }
 
     @Override

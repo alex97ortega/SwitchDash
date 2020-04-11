@@ -16,5 +16,4 @@ public interface Input {
         public Type type;
     }
     List<TouchEvent> getTouchEvents();
-    void deleteEvents();
 }
