@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.res.AssetManager;
 import android.view.SurfaceView;
 
-import java.util.Stack;
+import java.util.LinkedList;
 
 import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.GameState;
@@ -19,7 +19,7 @@ public class AndroidGame implements Game,Runnable {
         _graphics = new AndroidGraphics(surfaceView, assetManager);
         _input = new AndroidInput(surfaceView);
         _soundManager = new AndroidSoundManager(activity);
-        states = new Stack<GameState>();
+        states = new LinkedList<GameState>();
     }
 
     // gets de los managers principales del juego
@@ -85,35 +85,37 @@ public class AndroidGame implements Game,Runnable {
                 catch(Exception e) {}
     			*/
 
+            // cambiamos el estado si hay que hacerlo
+            changeGameState();
+
         } // while
     }
 
     // llamadas refereidas a la pila de estados
     @Override
     public GameState getGameState() {
-        if(states.empty())
+        if(states.isEmpty())
             return null;
         return states.peek();
     }
 
     @Override
-    public void changeGameState(GameState state) {
-        if (!states.empty()){
-            states.pop();
-            states.push(state);
-        }
-    }
-
-    @Override
     public void pushGameState(GameState state) {
-        states.push(state);
+        states.add(state);
     }
     @Override
     public void popGameState() {
-        if (!states.empty())
-            states.pop();
+        if (!states.isEmpty())
+            states.poll();
     }
-
+    // cambia el estado solo si hay uno encolado detrás del actual
+    // lo llamamos al final, cuando se hayan hecho todos los update y render
+    @Override
+    public void changeGameState() {
+        if (states.size() > 1){
+            popGameState();
+        }
+    }
 
     // Pause y resume
     public void pause() {
@@ -147,8 +149,8 @@ public class AndroidGame implements Game,Runnable {
     private Thread _renderThread;
     volatile boolean _running = false;
 
-    private AndroidGraphics _graphics;
+    private  AndroidGraphics _graphics;
     private  AndroidInput _input;
     private  AndroidSoundManager _soundManager;
-    private Stack<GameState> states;
+    private  LinkedList<GameState> states;
 }

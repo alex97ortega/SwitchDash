@@ -4,7 +4,7 @@ import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.Input;
 
 // comportamientos que sean comunes a todos los estados de juego
-public class BaseGameState implements es.ucm.gdv.engine.GameState {
+public abstract  class BaseGameState implements es.ucm.gdv.engine.GameState {
 
     BaseGameState(Game game, GameManager gm){
         _game = game;
@@ -33,10 +33,9 @@ public class BaseGameState implements es.ucm.gdv.engine.GameState {
     public void render() {
 
     }
-    @Override
-    public void onPress(int x, int y){
 
-    }
+    public abstract void onPress(int x, int y);
+
 
     protected Game _game;
     protected GameManager _gm;

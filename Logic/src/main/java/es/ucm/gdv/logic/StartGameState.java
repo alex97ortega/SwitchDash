@@ -57,7 +57,7 @@ public class StartGameState extends BaseGameState {
             }
         }
         // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
-        _game.changeGameState(new GamePlayState(_game,_gm));
+        _game.pushGameState(new GamePlayState(_game,_gm));
     }
     private Button[] buttons;
 }

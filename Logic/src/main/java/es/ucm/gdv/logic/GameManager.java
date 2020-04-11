@@ -61,7 +61,7 @@ public class GameManager {
                 musica.play();
                 break;
             case HELP:
-                _game.changeGameState(new HelpGameState(_game,this));
+                _game.pushGameState(new HelpGameState(_game,this));
                 break;
             default:
                 break;

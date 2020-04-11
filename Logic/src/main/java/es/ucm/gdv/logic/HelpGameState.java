@@ -48,11 +48,11 @@ public class HelpGameState extends BaseGameState  {
     @Override
     public void onPress(int x, int y) {
         if(buttonCancel.inside(x,y,_game.getGraphics())){
-            _game.changeGameState(new StartGameState(_game,_gm));
+            _game.pushGameState(new StartGameState(_game,_gm));
             return;
         }
         // si hemos hecho click en cualqueir otro lado, comenzamos a jugar
-        _game.changeGameState(new GamePlayState(_game,_gm));
+        _game.pushGameState(new GamePlayState(_game,_gm));
     }
 
     private Button buttonCancel;

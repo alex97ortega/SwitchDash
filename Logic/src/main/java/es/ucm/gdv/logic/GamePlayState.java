@@ -31,7 +31,7 @@ public class GamePlayState extends BaseGameState {
                 sonidoBola(balls[i].getColor());
 
                 if(balls[i].getColor() != player.getColor()) // game over si el color es distinto
-                    _game.changeGameState(new GameOverState(_game,_gm,score));
+                    _game.pushGameState(new GameOverState(_game,_gm,score));
                 else{
                     int previousBall = i-1;
                     if(i==0)

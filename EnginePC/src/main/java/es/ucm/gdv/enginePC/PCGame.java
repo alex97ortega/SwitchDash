@@ -1,6 +1,6 @@
 package es.ucm.gdv.enginePC;
 
-import java.util.Stack;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
@@ -21,7 +21,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
     }
     // Devuelve si se ha podido inicializar el graphics, por si acaso.
     public boolean init(){
-        states = new Stack<GameState>();
+        states = new LinkedList<GameState>();
         return _graphics.init();
     }
 
@@ -76,39 +76,42 @@ public class PCGame implements es.ucm.gdv.engine.Game{
                 } while (!_graphics.frameReady());
                 _graphics.show();
 
+                // cambiamos el estado si hay que hacerlo
+                changeGameState();
+
         } // while
     }
 
     // llamadas de la pila de estados
     @Override
     public GameState getGameState() {
-        if(states.empty())
+        if(states.isEmpty())
             return null;
         return states.peek();
     }
 
-    @Override
-    public void changeGameState(GameState state) {
-        if (!states.empty()){
-            states.pop();
-            states.push(state);
-        }
-    }
 
     @Override
     public void pushGameState(GameState state) {
-        states.push(state);
+        states.add(state);
     }
     @Override
     public void popGameState() {
-        if (!states.empty())
-            states.pop();
+        if (!states.isEmpty())
+            states.poll();
     }
-
+    // cambia el estado solo si hay uno encolado detrás del actual
+    // lo llamamos al final, cuando se hayan hecho todos los update y render
+    @Override
+    public void changeGameState() {
+        if (states.size() > 1){
+            popGameState();
+        }
+    }
     // variables privadas
     private PCGraphics _graphics;
     private PCInput _input;
     private PCSoundManager _soundManager;
-    private Stack<GameState> states;
+    private LinkedList<GameState> states;
 }
 

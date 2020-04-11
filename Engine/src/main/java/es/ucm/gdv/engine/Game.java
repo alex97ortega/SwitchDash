@@ -10,7 +10,7 @@ public interface Game {
     void run();
 
     GameState getGameState();
-    void changeGameState(GameState state);
+    void changeGameState();
     void pushGameState(GameState state);
     void popGameState();
 }

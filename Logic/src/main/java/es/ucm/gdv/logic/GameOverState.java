@@ -71,7 +71,7 @@ public class GameOverState extends BaseGameState{
         // justo al haber cambiado el estado, y no da tiempo a ver el record.
         double currentTime = System.nanoTime()/ 1.0E9;
         if(currentTime - initialTime > 1)
-            _game.changeGameState(new GamePlayState(_game,_gm));
+            _game.pushGameState(new GamePlayState(_game,_gm));
     }
 
     private int score;
