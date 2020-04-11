@@ -36,30 +36,5 @@ public class PCSoundManager implements SoundManager {
             return;
         }
     }
-
-    // reproducir un sonido
-    @Override
-    public void playSound(Sound sonido) {
-        try {
-            Clip tmp = ((PCSound)(sonido)).getSound();
-            tmp.start();
-        }
-        catch (Exception e) {
-            System.out.println("Ningun sonido que reproducir");
-            return;
-        }
-    }
-
-    // parar un sonido
-    @Override
-    public void stopSound(Sound sonido) {
-        try {
-            Clip tmp = ((PCSound)(sonido)).getSound();
-            tmp.stop();
-        }
-        catch (Exception e) {
-            return;
-        }
-    }
 }
 

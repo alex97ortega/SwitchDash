@@ -11,12 +11,13 @@ public class GameManager {
     }
     public void init()
     {
+        _game.getGraphics().setResolutionRef(1080,1920);
         initResources();
         color = BackgroundColor.GREEN;
         _game.pushGameState(new StartGameState(_game, this));
 
         musica = getSound(GameManager.Sounds.MUSIC);
-        _game.getSoundManager().playSound(musica);
+        musica.play();
     }
 
     private void initResources()
@@ -52,12 +53,12 @@ public class GameManager {
             case SOUND_ON:
                 b.ChangeType(GameManager.Buttons.SOUND_OFF);
                 withSound = false;
-                _game.getSoundManager().stopSound(musica);
+                musica.stop();
                 break;
             case SOUND_OFF:
                 b.ChangeType(GameManager.Buttons.SOUND_ON);
                 withSound = true;
-                _game.getSoundManager().playSound(musica);
+                musica.play();
                 break;
             case HELP:
                 _game.changeGameState(new HelpGameState(_game,this));

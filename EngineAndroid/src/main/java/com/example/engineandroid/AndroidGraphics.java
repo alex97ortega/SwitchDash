@@ -22,7 +22,13 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _canvas = _surfaceView.getHolder().lockCanvas();//lockHardwareCanvas()
         _paint = new Paint();
     }
-
+    // establecemos la resolución que nos interese en el juego para el canvas lógico
+    @Override
+    public void setResolutionRef(int refX, int refY)
+    {
+        refScaleX = refX;
+        refScaleY = refY;
+    }
     // proporcionando una ruta, devuelve la imagen correspondiente si existe
     @Override
     public Image newImage(String name) {
@@ -118,6 +124,10 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
     public float getRelationY(){
         return getHeight()/(float)refScaleY;
     }
+    @Override
+    public int getResolutionRefX(){ return refScaleX; }
+    @Override
+    public int getResolutionRefY(){ return refScaleY; }
 
     // llamadas hechas desde el run
     public boolean validSurface()
@@ -129,8 +139,13 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _surfaceView.getHolder().unlockCanvasAndPost(_canvas);
     }
 
+
+    // variables privadas
     private AssetManager _assetManager ;
     private SurfaceView _surfaceView;
     private Canvas _canvas;
     private Paint _paint;
+    //canvas lógico
+    private int refScaleX;
+    private int refScaleY;
 }

@@ -12,12 +12,12 @@ import es.ucm.gdv.engine.Graphics;
 import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.SoundManager;
 
-public class AndroidGame extends SurfaceView implements Game,Runnable {
+public class AndroidGame implements Game,Runnable {
     // constructora
     public AndroidGame(Activity activity, AssetManager assetManager){
-        super(activity);
-        _graphics = new AndroidGraphics(this, assetManager);
-        _input = new AndroidInput(this);
+        surfaceView = new SurfaceView(activity);
+        _graphics = new AndroidGraphics(surfaceView, assetManager);
+        _input = new AndroidInput(surfaceView);
         _soundManager = new AndroidSoundManager(activity);
         states = new Stack<GameState>();
     }
@@ -34,6 +34,10 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
     @Override
     public SoundManager getSoundManager(){return _soundManager;}
 
+    public SurfaceView getSurfaceView() {
+        return surfaceView;
+    }
+
     //bucle de juego
     @Override
     public void run() {
@@ -41,7 +45,7 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
             throw new RuntimeException("run() should not be called directly");
         }
 
-        while(_running && getWidth() == 0)
+        while(_running && surfaceView.getWidth() == 0)
             // Espera activa. Sería más elegante al menos dormir un poco.
             ;
 
@@ -139,6 +143,7 @@ public class AndroidGame extends SurfaceView implements Game,Runnable {
     }
 
     // variables privadas
+    private SurfaceView surfaceView;
     private Thread _renderThread;
     volatile boolean _running = false;
 

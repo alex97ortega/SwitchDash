@@ -97,11 +97,12 @@ public class Screen {
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         int height = fondo.getHeight();
 
-        int comienzoX = _graphics.refScaleX/2-arrow.getWidth()/2;
+
+        int comienzoX = _graphics.getResolutionRefX()/2-arrow.getWidth()/2;
         int finalX = comienzoX + arrow.getWidth() - width;
 
         for (int i=comienzoX; i<finalX;i+=(int)(width*_graphics.getRelationY())){ // ancho
-            for (int j=0; j<_graphics.refScaleY;j+=height){ // alto
+            for (int j=0; j<_graphics.getResolutionRefY();j+=height){ // alto
                 _graphics.drawImage
                         (fondo, new Rect(i,j,(int)(width/_graphics.getRelationY()),(int)(height/_graphics.getRelationY())),
                                 new Rect(width*color.ordinal(),0,width,height),1.f);
@@ -171,8 +172,8 @@ public class Screen {
 
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
-        for (int i=0; i<_graphics.refScaleX;i+=fondo.getWidth()){ // ancho
-            for (int j=0; j<_graphics.refScaleY;j+=fondo.getHeight()){ // alto
+        for (int i=0; i<_graphics.getResolutionRefX();i+=fondo.getWidth()){ // ancho
+            for (int j=0; j<_graphics.getResolutionRefY();j+=fondo.getHeight()){ // alto
                 _graphics.drawImage
                         (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
                                 new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);

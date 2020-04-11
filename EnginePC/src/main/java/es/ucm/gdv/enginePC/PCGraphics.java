@@ -44,6 +44,13 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
         return true;
     }
 
+    // establecemos la resolución que nos interese en el juego para el canvas lógico
+    @Override
+    public void setResolutionRef(int refX, int refY)
+    {
+        refScaleX = refX;
+        refScaleY = refY;
+    }
 
     // proporcionando una ruta, devuelve la imagen correspondiente si existe
     @Override
@@ -123,6 +130,10 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     public float getRelationY(){
         return getHeight()/(float)refScaleY;
     }
+    @Override
+    public int getResolutionRefX(){ return refScaleX; }
+    @Override
+    public int getResolutionRefY(){ return refScaleY; }
 
     // llamadas hechas desde el run
     public void setGraphics(){_graphics2D=(Graphics2D)_bufferStrategy.getDrawGraphics();}
@@ -135,7 +146,11 @@ public class PCGraphics implements es.ucm.gdv.engine.Graphics {
     }
     public void show(){_bufferStrategy.show();}
 
+    // variables privadas
     private BufferStrategy _bufferStrategy;
     private Graphics2D _graphics2D; // necesario para alpha
     private JFrame _jFrame;
+    // canvas lógico
+    private int refScaleX;
+    private int refScaleY;
 }

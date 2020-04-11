@@ -56,7 +56,7 @@ public class GamePlayState extends BaseGameState {
             else
                 sound = _gm.getSound(GameManager.Sounds.SOUND_WHITE);
 
-            _game.getSoundManager().playSound(sound);
+            sound.play();
         }
     }
     @Override

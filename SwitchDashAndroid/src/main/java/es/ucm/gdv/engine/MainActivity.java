@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         gm = new GameManager(game);
 
         // Preparamos el contenido de la actividad.
-        setContentView(game);
+        setContentView(game.getSurfaceView());
         gm.init();
     }
 

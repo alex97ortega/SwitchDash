@@ -36,8 +36,8 @@ public class Button {
 
     public boolean inside(int x, int y, Graphics graphics){
 
-        float relationX = graphics.getWidth()/(float)graphics.refScaleX;
-        float relationY = graphics.getHeight()/(float)graphics.refScaleY;
+        float relationX = graphics.getRelationX();
+        float relationY = graphics.getRelationY();
 
         int realX = (int)(_x *relationX);
         int realY = (int)(_y *relationY);

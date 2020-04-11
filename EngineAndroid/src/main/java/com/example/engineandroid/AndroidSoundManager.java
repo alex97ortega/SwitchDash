@@ -33,26 +33,5 @@ public class AndroidSoundManager implements SoundManager {
         tmp.release();
     }
 
-    // reproducir un sonido
-    @Override
-    public void playSound(Sound sonido) {
-        MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
-        if(tmp == null){
-            System.out.println("No hay sonido que reproducir");
-            return;
-        }
-        tmp.start();
-    }
-
-    // parar un sonido
-    @Override
-    public void stopSound(Sound sonido) {
-        MediaPlayer tmp = ((AndroidSound)(sonido)).getSound();
-        if(tmp == null){
-            System.out.println("No hay sonido que parar");
-            return;
-        }
-        tmp.stop();
-    }
     private Context _context;
 }
