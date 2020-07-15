@@ -40,7 +40,7 @@ public class PCGame implements es.ucm.gdv.engine.Game{
     public SoundManager getSoundManager(){return _soundManager;}
 
     // bucle de juego
-    @Override
+
     public void run() {
 
         long lastFrameTime = System.nanoTime();

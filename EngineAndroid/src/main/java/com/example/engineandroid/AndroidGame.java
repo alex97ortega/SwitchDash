@@ -39,7 +39,7 @@ public class AndroidGame implements Game,Runnable {
     }
 
     //bucle de juego
-    @Override
+
     public void run() {
         if (_renderThread != Thread.currentThread()) {
             throw new RuntimeException("run() should not be called directly");

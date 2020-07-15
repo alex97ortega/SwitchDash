@@ -7,8 +7,6 @@ public interface Game {
     Input getInput();
     SoundManager getSoundManager();
 
-    void run();
-
     GameState getGameState();
     void changeGameState();
     void pushGameState(GameState state);

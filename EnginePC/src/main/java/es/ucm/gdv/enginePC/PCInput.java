@@ -32,26 +32,26 @@ public class PCInput implements es.ucm.gdv.engine.Input, MouseListener, KeyListe
 
     // llamadas del mouse, añade el evento que corresponda
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
+    synchronized public void mouseClicked(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
+    synchronized public void mousePressed(MouseEvent mouseEvent) {
         events.add(new TouchEvent(TouchEvent.Type.Pressed, mouseEvent.getX(), mouseEvent.getY()));
     }
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
+    synchronized public void mouseReleased(MouseEvent mouseEvent) {
         events.add(new TouchEvent(TouchEvent.Type.Released, mouseEvent.getX(), mouseEvent.getY()));
     }
 
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
+    synchronized  public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
     @Override
-    public void mouseExited(MouseEvent mouseEvent) {
+    synchronized public void mouseExited(MouseEvent mouseEvent) {
 
     }
 
@@ -60,19 +60,19 @@ public class PCInput implements es.ucm.gdv.engine.Input, MouseListener, KeyListe
     // llamadas para teclado, en este caso nos interesa que la tecla Espacio
     // devuelva el mismo evento que si se hubiera pulsado el ratón
     @Override
-    public void keyPressed(KeyEvent keyEvent) {
+    synchronized public void keyPressed(KeyEvent keyEvent) {
         if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE)
             events.add(new TouchEvent(TouchEvent.Type.Pressed, 0,0));
     }
 
     @Override
-    public void keyReleased(KeyEvent keyEvent) {
+    synchronized public void keyReleased(KeyEvent keyEvent) {
         if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE)
             events.add(new TouchEvent(TouchEvent.Type.Released, 0,0));
     }
 
     @Override
-    public void keyTyped(KeyEvent keyEvent) {
+    synchronized public void keyTyped(KeyEvent keyEvent) {
 
     }
 }

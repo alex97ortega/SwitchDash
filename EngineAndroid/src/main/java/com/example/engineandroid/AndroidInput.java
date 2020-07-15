@@ -34,7 +34,7 @@ public class AndroidInput implements es.ucm.gdv.engine.Input, View.OnTouchListen
     // ACTION_MOVE al mover el dedo mientrasse pulsa
     // ACTION_UP al levantar el dedo de la pantalla
     @Override
-    public boolean onTouch(View v, MotionEvent event)
+    synchronized public boolean onTouch(View v, MotionEvent event)
     {
         int x = (int) event.getX();
         int y = (int) event.getY();
