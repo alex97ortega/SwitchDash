@@ -2,7 +2,8 @@ package es.ucm.gdv.engine;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.view.Window;
+import android.content.pm.ActivityInfo;
 
 import com.example.engineandroid.AndroidGame;
 
@@ -14,8 +15,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
         game = new AndroidGame(this, getAssets());
         gm = new GameManager(game);
+
 
         // Preparamos el contenido de la actividad.
         setContentView(game.getSurfaceView());

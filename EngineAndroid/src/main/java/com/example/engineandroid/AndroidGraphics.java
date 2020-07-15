@@ -77,11 +77,7 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _paint.setAlpha(finalAlpha);
 
 
-        Rect scaledScr;
-        if(scr.getX() == refScaleX/2 - (scr.getW()/2))
-            scaledScr = scale(scr, true);
-        else
-            scaledScr = scale(scr, false);
+        Rect scaledScr = scale(scr);
 
         android.graphics.Rect _src =  new android.graphics.Rect(scaledScr.getA().getX(), scaledScr.getA().getY(),
                 scaledScr.getB().getX(), scaledScr.getB().getY());
@@ -92,15 +88,13 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
     }
 
     // devuelve una posicion y tamaño nuevos para el reescalado que haya
-    private Rect scale( Rect oldScr,boolean centrado){
+    private Rect scale( Rect oldScr){
 
         int newX = (int)(oldScr.getA().getX()*getRelationX());
         int newY = (int)(oldScr.getA().getY()*getRelationY());
         int newWidth = (int)(oldScr.getW() * getRelationX());
         int newHeight = (int)(oldScr.getH()*getRelationY());
 
-        if(centrado)
-            newX = getWidth()/2 - newWidth/2;
         return new Rect(newX, newY, newWidth, newHeight);
     }
 
