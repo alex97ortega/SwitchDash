@@ -18,7 +18,7 @@ public class AndroidInput implements es.ucm.gdv.engine.Input, View.OnTouchListen
 
     // obtener la lista de eventos
     @Override
-    public List<TouchEvent> getTouchEvents() {
+    synchronized public List<TouchEvent> getTouchEvents() {
         List<TouchEvent> aux = (ArrayList)events.clone();
 
         if(!events.isEmpty())

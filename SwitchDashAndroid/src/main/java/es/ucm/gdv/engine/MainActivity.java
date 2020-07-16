@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.content.pm.ActivityInfo;
+import android.view.WindowManager;
 
 import com.example.engineandroid.AndroidGame;
 
@@ -15,12 +16,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
         game = new AndroidGame(this, getAssets());
         gm = new GameManager(game);
 
+        // para que salga en pantalla completa sin título
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
 
         // Preparamos el contenido de la actividad.
         setContentView(game.getSurfaceView());

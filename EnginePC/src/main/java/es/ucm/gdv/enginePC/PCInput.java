@@ -21,7 +21,7 @@ public class PCInput implements es.ucm.gdv.engine.Input, MouseListener, KeyListe
 
     // obtener la lista de eventos
     @Override
-    public List<TouchEvent> getTouchEvents() {
+    synchronized public List<TouchEvent> getTouchEvents() {
         List<TouchEvent> aux = (ArrayList)events.clone();
 
         if(!events.isEmpty())
