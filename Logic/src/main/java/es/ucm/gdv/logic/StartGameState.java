@@ -26,16 +26,16 @@ public class StartGameState extends BaseGameState {
 
         // logo
         Image img = _gm.getImage(GameManager.Images.LOGO);
-        int x =  _gm.refScreenWidth/2-(img.getWidth()/2);
-        int y = _gm.logoPosY;
+        int x = (int)(( _screen.getWidth() / 2) - ((img.getWidth() * _graphics.getScale()) / 2));
+        int y = (int)(_gm.logoPosY*_graphics.getScale());
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                         new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
 
         // tap to play
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
-        x =  _gm.refScreenWidth/2-(img.getWidth()/2);
-        y = _gm.tapToPlayPosY1;
+        x = (int)(( _screen.getWidth() / 2) - ((img.getWidth() * _graphics.getScale()) / 2));
+        y = (int)(_gm.tapToPlayPosY1*_graphics.getScale());
 
         _screen.drawAlphaImage(x,y,img);
 

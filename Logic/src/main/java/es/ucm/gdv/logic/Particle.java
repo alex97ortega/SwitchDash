@@ -5,7 +5,7 @@ import es.ucm.gdv.engine.Image;
 import es.ucm.gdv.engine.Rect;
 
 public class Particle {
-    Particle(Player.Color color, GameManager gm, float tama){
+    Particle(Player.Color color, GameManager gm, float tama, Game game, Screen screen){
         _img =  gm.getImage(GameManager.Images.BALLS);
 
         _gm = gm;
@@ -17,7 +17,7 @@ public class Particle {
         initialY = _gm.playerPosY - ((int)((_img.getHeight()/2)/tam))/2;
 
         _y = initialY;
-        _x = _gm.refScreenWidth/2-((int)((_img.getWidth()/10)/tam))/2;
+        _x = (int)(( screen.getWidth() / 2) - (((_img.getWidth()/10) * game.getGraphics().getScale()) / 2));
         alpha = 1.f;
 
 
@@ -26,8 +26,8 @@ public class Particle {
     }
 
     public void update(double elapsedTime){
-        _y += dirY*elapsedTime*_gm.getGameVelocity();
-        _x += dirX*elapsedTime*_gm.getGameVelocity();
+        _y += dirY*elapsedTime*_gm.getGameVelocity()/2;
+        _x += dirX*elapsedTime*_gm.getGameVelocity()/2;
         alpha -= elapsedTime*_gm.getGameVelocity()/300;
     }
 
@@ -37,8 +37,9 @@ public class Particle {
         if(state == Player.Color.BLACK)
             clipY = _img.getHeight()/2;
 
+
         game.getGraphics().drawImage(_img,
-                new Rect((int)_x,(int)_y,(int)((_img.getWidth()/10)/tam),(int)((_img.getHeight()/2)/tam)),
+                new Rect((int)_x,(int)(_y *game.getGraphics().getScale()),(int)((_img.getWidth()/10)/tam),(int)((_img.getHeight()/2)/tam)),
                         new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), alpha);
     }
 

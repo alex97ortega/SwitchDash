@@ -9,16 +9,18 @@ public class Player {
         _img =  gm.getImage(GameManager.Images.PLAYERS);
         state = Color.BLACK;
 
-        _x =  gm.refScreenWidth/2-(_img.getWidth()/2);
-        _y = gm.playerPosY;
+        _x = gm.refScreenWidth/2-(_img.getWidth()/2);
+        _y = initialY = gm.playerPosY;
     }
 
-    public void render(Game game){
+    public void render(Game game, Screen screen){
         // para cambiar entre player blanco y negro
         int clipY = 0;
         if(state == Color.BLACK)
             clipY = _img.getHeight()/2;
 
+        _x = (int)(( screen.getWidth() / 2) - ((_img.getWidth() * game.getGraphics().getScale()) / 2));
+        _y = (int)(initialY*game.getGraphics().getScale());
 
         game.getGraphics().drawImage(_img,
                 new Rect(_x,_y,_img.getWidth(),_img.getHeight()/2),
@@ -35,6 +37,7 @@ public class Player {
     private Image _img;
     private Color state;
     private int _x,_y;
+    private int initialY;
 
     public enum Color{
         BLACK,

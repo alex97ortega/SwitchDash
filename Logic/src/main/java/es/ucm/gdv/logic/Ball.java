@@ -32,14 +32,16 @@ public class Ball {
         return false;
     }
 
-    public void render(Game game){
+    public void render(Game game, Screen screen){
         // para cambiar entre player blanco y negro
         int clipY = 0;
-        if(state == Player.Color.BLACK)
+        if(_y *game.getGraphics().getScale() < -20 || state == Player.Color.BLACK)
             clipY = _img.getHeight()/2;
 
+        _x = (int)(( screen.getWidth() / 2) - (((_img.getWidth()/10) * game.getGraphics().getScale()) / 2));
+
         game.getGraphics().drawImage(_img,
-                new Rect((int)_x,(int)_y,_img.getWidth()/10,_img.getHeight()/2),
+                new Rect((int)_x,(int)(_y *game.getGraphics().getScale()),_img.getWidth()/10,_img.getHeight()/2),
                 new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), 1.f);
     }
 

@@ -29,18 +29,21 @@ public class GameOverState extends BaseGameState{
 
         // Game Over
         Image img = _gm.getImage(GameManager.Images.GAMEOVER);
-        int x = _gm.refScreenWidth/2-(img.getWidth()/2);
-        int y = _gm.gameOverPosY;
+        int x = (int)(( _screen.getWidth() / 2) - ((img.getWidth() * _graphics.getScale()) / 2));
+        int y = (int)(_gm.gameOverPosY*_graphics.getScale());
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                         new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // score
         img = _gm.getImage(GameManager.Images.SCOREFONT);
-        x = _gm.refScreenWidth/2-(img.getWidth()/15/2);
-        y = _gm.refScreenHeight/2;
+        x = (int)(( _screen.getWidth() / 2) - ((87 * _graphics.getScale()) / 2));
+        y = (int)((_gm.gameOverPosY+600)*_graphics.getScale());
 
-        _screen.drawScore(x,y-50,score);
-        _screen.drawText(x-180, y+130, "points");
+        _screen.drawScore(x,y,score);
+
+        x = (int)(( _screen.getWidth() / 2) - ((510 * _graphics.getScale()) / 2));
+        y = (int)((_gm.gameOverPosY+800)*_graphics.getScale());
+        _screen.drawText(x, y, "points");
 
         // Play again
         img = _gm.getImage(GameManager.Images.PLAYAGAIN);

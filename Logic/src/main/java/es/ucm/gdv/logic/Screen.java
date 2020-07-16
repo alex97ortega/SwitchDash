@@ -56,8 +56,8 @@ public class Screen {
         drawFondo(color);
         //drawFondoGamePlay(color);
         drawArrows();
-        //if(alphaFlash>0)
-        //    drawFlashEffect(alphaFlash);
+        if(alphaFlash>0)
+            drawFlashEffect(alphaFlash);
     }
 
     private void drawFondo(GameManager.BackgroundColor color){
@@ -93,25 +93,7 @@ public class Screen {
                 break;
         }
     }
-    // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
-    // por ahora no lo usamos ya que es pura estética y baja el rendimiento para android
-    /*private void drawFondoGamePlay(GameManager.BackgroundColor color){
-        Image fondo = _gm.getImage(GameManager.Images.BACKGROUND);
-        int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
-        int height = fondo.getHeight();
 
-
-        int comienzoX = _graphics.getResolutionRefX()/2-arrow.getWidth()/2;
-        int finalX = comienzoX + arrow.getWidth() - width;
-
-        for (int i=comienzoX; i<finalX;i+=(int)(width*_graphics.getRelationY())){ // ancho
-            for (int j=0; j<_graphics.getResolutionRefY();j+=height){ // alto
-                _graphics.drawImage
-                        (fondo, new Rect(i,j,(int)(width/_graphics.getRelationY()),(int)(height/_graphics.getRelationY())),
-                                new Rect(width*color.ordinal(),0,width,height),1.f);
-            }
-        }
-    }*/
     private void drawArrows(){
 
         _graphics.drawImage(arrow,
@@ -130,13 +112,13 @@ public class Screen {
     public void drawScore(int x, int y, int num){
         //suponemos que el score nunca va a pasar de 199
         if(num > 99){
-            drawNumber(x-80,y, num/100);
-            drawNumber(x-10,y, (num-100)/10);
-            drawNumber(x+60,y, num%10);
+            drawNumber((int)(x-(120*_graphics.getScale())),y, num/100);
+            drawNumber((int)(x-(60*_graphics.getScale())),y, (num-100)/10);
+            drawNumber(x,y, num%10);
         }
         else if(num > 9){
-            drawNumber(x-40,y, num/10);
-            drawNumber(x+30,y, num%10);
+            drawNumber((int)(x-(60*_graphics.getScale())),y, num/10);
+            drawNumber(x,y, num%10);
         }
         else
             drawNumber(x,y, num%10);
@@ -158,8 +140,6 @@ public class Screen {
     }
 
     public void drawText(int x, int y, String text){
-        // el reescalado funciona bien para todos los elementos menos
-        // para el texto,  no lo conseguimos solucionar
         Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
         int clipx = (imgScore.getWidth()/15);
         int clipy = (imgScore.getHeight()/7);
@@ -172,7 +152,7 @@ public class Screen {
             int letra = (int)text.charAt(i) - charA;
             positions[i] = new Point(letra%15, letra /15);
             _graphics.drawImage(imgScore,
-                    new Rect(x + (i *70),y,imgScore.getWidth()/15,imgScore.getHeight()/7),
+                    new Rect((int)(x + (i *80*_graphics.getScale())),y,imgScore.getWidth()/15,imgScore.getHeight()/7),
                             new Rect(clipx * positions[i].getX(),clipy* positions[i].getY(),imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
         }
     }
@@ -180,13 +160,9 @@ public class Screen {
 
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
-        /*for (int i=0; i<_graphics.getResolutionRefX();i+=fondo.getWidth()){ // ancho
-            for (int j=0; j<_graphics.getResolutionRefY();j+=fondo.getHeight()){ // alto
-                _graphics.drawImage
-                        (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
-                                new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);
-            }
-        }*/
+
+        _graphics.drawImage(fondo, new Rect(0, 0, (int)(_graphics.getWidth()/_graphics.getScale()), (int)(_graphics.getHeight()/_graphics.getScale())),
+                new Rect(0, 0, fondo.getWidth(), fondo.getHeight()), alphaFlash);
     }
     public void doFlashEffect(){ alphaFlash = 1.f;}
     public int getWidth() {
