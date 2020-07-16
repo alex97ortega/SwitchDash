@@ -23,7 +23,6 @@ public class StartGameState extends BaseGameState {
     @Override
     public void render() {
         super.render();
-        screen.render(_gm.getColor());
 
         // logo
         Image img = _gm.getImage(GameManager.Images.LOGO);
@@ -31,14 +30,14 @@ public class StartGameState extends BaseGameState {
         int y = _gm.logoPosY;
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
-                new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
+                        new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
 
         // tap to play
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
         x =  _gm.refScreenWidth/2-(img.getWidth()/2);
         y = _gm.tapToPlayPosY1;
 
-        screen.drawAlphaImage(x,y,img);
+        _screen.drawAlphaImage(x,y,img);
 
         // buttons
         for (Button b:

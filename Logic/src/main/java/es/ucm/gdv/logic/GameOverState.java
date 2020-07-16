@@ -26,7 +26,6 @@ public class GameOverState extends BaseGameState{
     @Override
     public void render() {
         super.render();
-        screen.render(_gm.getColor());
 
         // Game Over
         Image img = _gm.getImage(GameManager.Images.GAMEOVER);
@@ -34,20 +33,20 @@ public class GameOverState extends BaseGameState{
         int y = _gm.gameOverPosY;
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
-                new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
+                        new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // score
         img = _gm.getImage(GameManager.Images.SCOREFONT);
         x = _gm.refScreenWidth/2-(img.getWidth()/15/2);
         y = _gm.refScreenHeight/2;
 
-        screen.drawScore(x,y-50,score);
-        screen.drawText(x-180, y+130, "points");
+        _screen.drawScore(x,y-50,score);
+        _screen.drawText(x-180, y+130, "points");
 
         // Play again
         img = _gm.getImage(GameManager.Images.PLAYAGAIN);
         x = _gm.refScreenWidth/2-(img.getWidth()/2);
         y = _gm.playAgainPosY;
-        screen.drawAlphaImage(x,y,img);
+        _screen.drawAlphaImage(x,y,img);
 
         // buttons
         for (Button b:

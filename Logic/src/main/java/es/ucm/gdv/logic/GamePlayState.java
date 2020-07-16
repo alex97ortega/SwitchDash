@@ -61,14 +61,13 @@ public class GamePlayState extends BaseGameState {
     }
     @Override
     public void render() {
-        screen.render(_gm.getColor());
         player.render(_game);
         for (Ball b: balls) {
             b.render(_game);
         }
         int x = _gm.refScreenWidth-160;
         int y = _gm.infoPosY;
-        screen.drawScore(x,y,score);
+        _screen.drawScore(x,y,score);
 
         if(particleSystem != null)
             particleSystem.render(_game);

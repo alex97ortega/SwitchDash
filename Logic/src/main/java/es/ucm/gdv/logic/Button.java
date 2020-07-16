@@ -36,20 +36,14 @@ public class Button {
 
     public boolean inside(int x, int y, Graphics graphics){
 
-        float relationX = graphics.getRelationX();
-        float relationY = graphics.getRelationY();
+        boolean clicked = false;
 
-        int realX = (int)(_x *relationX);
-        int realY = (int)(_y *relationY);
+        if((x >= _x && y <= (_x + (_width * graphics.getScale())) && (y >= _y && y <= _y + (_height * graphics.getScale())))){
 
-        int realW = (int)(_width *relationX);
-        int realH = (int)(_height *relationY);
+            clicked = true;
+        }
 
-        if(x < realX || x > realX +realW )
-            return false;
-        if(y < realY || y > realY +realH)
-            return  false;
-        return true;
+        return clicked;
     }
     public GameManager.Buttons getType(){return _type;}
     public void ChangeType(GameManager.Buttons type){_type = type;}

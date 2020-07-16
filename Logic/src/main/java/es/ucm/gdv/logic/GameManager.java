@@ -11,7 +11,6 @@ public class GameManager {
     }
     public void init()
     {
-        _game.getGraphics().setResolutionRef(1080,1920);
         initResources();
         color = BackgroundColor.GREEN;
         _game.pushGameState(new StartGameState(_game, this));
@@ -86,12 +85,7 @@ public class GameManager {
     public int getBallSeparation(){
         return ballSeparation;
     }
-    public float getRelationX(){
-        return _game.getGraphics().getRelationX();
-    }
-    public float getRelationY(){
-        return _game.getGraphics().getRelationY();
-    }
+
     private Game _game;
 
     // recursos

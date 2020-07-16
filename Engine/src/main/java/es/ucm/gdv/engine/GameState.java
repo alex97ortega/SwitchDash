@@ -4,4 +4,5 @@ package es.ucm.gdv.engine;
 public interface GameState {
     void update(double elapsedTime);
     void render();
+    void resize(int width, int height);
 }

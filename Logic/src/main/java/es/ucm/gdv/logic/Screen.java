@@ -19,12 +19,20 @@ public class Screen {
         alpha = 0;
         alphaFlash = 0;
         alphaSum=true;
+
+        updateArrowsInitialPos();
+    }
+
+    public void updateArrowsInitialPos() {
+
+        iniPos = _graphics.getCrop()[1] - ((arrow.getHeight() * _graphics.getScale()) / 5);
+        posYarrows += _graphics.getCrop()[1];
     }
 
     public void update(double elapsedTime){
-        posYarrows += (_gm.getGameVelocity()-46)*elapsedTime;
-        if(posYarrows >= 0)
-            posYarrows -= pixelsPatronArrows;
+        posYarrows += (_gm.getGameVelocity()-46)*_graphics.getScale()*elapsedTime;
+        if(posYarrows >= _graphics.getCrop()[1])
+            posYarrows = iniPos;
 
         // alpha para el tapToPlay
         if(alpha <= 0){
@@ -44,17 +52,12 @@ public class Screen {
             alphaFlash-= 3*elapsedTime;
     }
     public void render(GameManager.BackgroundColor color ){
-        // tenemos que actualizar el ancho y alto por si cambiamos el tamaño
-        //  de la pantalla mientras se juega
-
-        _width = _graphics.getWidth();
-        _height = _graphics.getHeight();
 
         drawFondo(color);
         //drawFondoGamePlay(color);
         drawArrows();
-        if(alphaFlash>0)
-            drawFlashEffect(alphaFlash);
+        //if(alphaFlash>0)
+        //    drawFlashEffect(alphaFlash);
     }
 
     private void drawFondo(GameManager.BackgroundColor color){
@@ -92,7 +95,7 @@ public class Screen {
     }
     // pintar el trozo de fondo que corresponde al pasillo donde se pintan las flechas.
     // por ahora no lo usamos ya que es pura estética y baja el rendimiento para android
-    private void drawFondoGamePlay(GameManager.BackgroundColor color){
+    /*private void drawFondoGamePlay(GameManager.BackgroundColor color){
         Image fondo = _gm.getImage(GameManager.Images.BACKGROUND);
         int width = fondo.getWidth()/(GameManager.BackgroundColor.TOTAL_COLORS.ordinal());
         int height = fondo.getHeight();
@@ -108,19 +111,22 @@ public class Screen {
                                 new Rect(width*color.ordinal(),0,width,height),1.f);
             }
         }
-    }
+    }*/
     private void drawArrows(){
-        int x =  _gm.refScreenWidth/2-(arrow.getWidth()/2);
 
         _graphics.drawImage(arrow,
-                new Rect(x,(int)posYarrows,arrow.getWidth(),arrow.getHeight()),
-                new Rect(0,0,arrow.getWidth(),arrow.getHeight()),0.8f);
+                new Rect((int)(_width - (arrow.getWidth() *_graphics.getScale())) / 2 ,
+                (int) (posYarrows - _graphics.getCrop()[1]), arrow.getWidth(), arrow.getHeight()),
+                new Rect(0, 0, arrow.getWidth(), arrow.getHeight()), 0.2f);
+
     }
+
     public void drawAlphaImage(int x, int y, Image img){
         _graphics.drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                 new Rect(0,0,img.getWidth(),img.getHeight()), alpha);
     }
+
     public void drawScore(int x, int y, int num){
         //suponemos que el score nunca va a pasar de 199
         if(num > 99){
@@ -135,6 +141,7 @@ public class Screen {
         else
             drawNumber(x,y, num%10);
     }
+
     private  void drawNumber(int x, int y, int num){
         Image imgScore = _gm.getImage(GameManager.Images.SCOREFONT);
         int clipx = (imgScore.getWidth()/15)*(7 + num);
@@ -147,8 +154,9 @@ public class Screen {
         }
         _graphics.drawImage(imgScore,
                 new Rect(x,y,imgScore.getWidth()/15,imgScore.getHeight()/7),
-                new Rect(clipx,clipy,imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
+                        new Rect(clipx,clipy,imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
     }
+
     public void drawText(int x, int y, String text){
         // el reescalado funciona bien para todos los elementos menos
         // para el texto,  no lo conseguimos solucionar
@@ -165,20 +173,20 @@ public class Screen {
             positions[i] = new Point(letra%15, letra /15);
             _graphics.drawImage(imgScore,
                     new Rect(x + (i *70),y,imgScore.getWidth()/15,imgScore.getHeight()/7),
-                    new Rect(clipx * positions[i].getX(),clipy* positions[i].getY(),imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
+                            new Rect(clipx * positions[i].getX(),clipy* positions[i].getY(),imgScore.getWidth()/15,imgScore.getHeight()/7), 1.f);
         }
     }
     private void drawFlashEffect(float alpha){
 
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
-        for (int i=0; i<_graphics.getResolutionRefX();i+=fondo.getWidth()){ // ancho
+        /*for (int i=0; i<_graphics.getResolutionRefX();i+=fondo.getWidth()){ // ancho
             for (int j=0; j<_graphics.getResolutionRefY();j+=fondo.getHeight()){ // alto
                 _graphics.drawImage
                         (fondo, new Rect(i,j,fondo.getWidth(),fondo.getHeight()),
                                 new Rect(0,0,fondo.getWidth(),fondo.getHeight()),alpha);
             }
-        }
+        }*/
     }
     public void doFlashEffect(){ alphaFlash = 1.f;}
     public int getWidth() {
@@ -188,9 +196,16 @@ public class Screen {
     public int getHeight() {
         return _height;
     }
+    public void setWidth(int width) {
+        _width = width;
+    }
+
+    public void setHeight(int height) {
+        _height = height;
+    }
 
     private int _width, _height;
-    private float posYarrows = 0;
+    private float posYarrows, iniPos;
     private Image arrow;
     private float alpha;
     private float alphaFlash;
@@ -199,6 +214,4 @@ public class Screen {
     private GameManager _gm;
     private Graphics _graphics;
 
-    // cada 1228 píxeles se repite el patrón de las flechas, para que quede fluido
-    private final int pixelsPatronArrows = 614;
 }

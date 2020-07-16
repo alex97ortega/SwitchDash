@@ -17,7 +17,6 @@ public class HelpGameState extends BaseGameState  {
     @Override
     public void render() {
         super.render();
-        screen.render(_gm.getColor());
 
         // HOW TO PLAY
         Image img = _gm.getImage(GameManager.Images.HOWTOPLAY);
@@ -26,7 +25,7 @@ public class HelpGameState extends BaseGameState  {
 
         _game.getGraphics().drawImage(img,
                 new Rect(x,y,img.getWidth(),img.getHeight()),
-                new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
+                        new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // INSTRUCTIONS
         Image img2 = _gm.getImage(GameManager.Images.INSTRUCTIONS);
         x = _gm.refScreenWidth/2-(img2.getWidth()/2);
@@ -34,13 +33,13 @@ public class HelpGameState extends BaseGameState  {
 
         _game.getGraphics().drawImage(img2,
                 new Rect(x,y,img2.getWidth(),img2.getHeight()),
-                new Rect(0,0,img2.getWidth(),img2.getHeight()), 1.f);
+                        new Rect(0,0,img2.getWidth(),img2.getHeight()), 1.f);
 
         // TapToPlay
         img = _gm.getImage(GameManager.Images.TAPTOPLAY);
         x = _gm.refScreenWidth/2-(img.getWidth()/2);
         y = _gm.tapToPlayPosY2;
-        screen.drawAlphaImage(x,y,img);
+        _screen.drawAlphaImage(x,y,img);
 
         buttonCancel.render(_game);
     }

@@ -39,7 +39,7 @@ public class Particle {
 
         game.getGraphics().drawImage(_img,
                 new Rect((int)_x,(int)_y,(int)((_img.getWidth()/10)/tam),(int)((_img.getHeight()/2)/tam)),
-                new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), alpha);
+                        new Rect((_img.getWidth()/10)*7,clipY,_img.getWidth()/10,_img.getHeight()/2), alpha);
     }
 
 
