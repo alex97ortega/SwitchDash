@@ -117,7 +117,7 @@ public class Screen {
             drawNumber(x,y, num%10);
         }
         else if(num > 9){
-            drawNumber((int)(x-(60*_graphics.getScale())),y, num/10);
+            drawNumber((int)(x-(70*_graphics.getScale())),y, num/10);
             drawNumber(x,y, num%10);
         }
         else

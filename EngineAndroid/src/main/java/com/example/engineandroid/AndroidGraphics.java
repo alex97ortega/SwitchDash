@@ -21,14 +21,14 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _surfaceView = surfaceView;
         _canvas = _surfaceView.getHolder().lockCanvas();//lockHardwareCanvas()
         _paint = new Paint();
+
+        _crop = new float[2];
+        _crop[0] = 0.0f;
+        _crop[1] = 0.0f;
+
+        _scale = 0.5f;
     }
-    // establecemos la resolución que nos interese en el juego para el canvas lógico
-    @Override
-    public void setResolutionRef(int refX, int refY)
-    {
-        refScaleX = refX;
-        refScaleY = refY;
-    }
+
     // proporcionando una ruta, devuelve la imagen correspondiente si existe
     @Override
     public Image newImage(String name) {
@@ -62,6 +62,10 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _canvas = _surfaceView.getHolder().lockCanvas(); //lockHardwareCanvas()
         _canvas.drawColor(color); // ARGB
     }
+    @Override
+    public void clearCrop(int color, int x, int y, int w, int h) {
+
+    }
     // dibuja una imagen (en este caso un bitmap)
     // proporcionando la posicion y el tamaño en el Rect scr
     // y el trozo de imagen que queremos de la imagen completa en el Rect clip
@@ -77,25 +81,13 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         _paint.setAlpha(finalAlpha);
 
 
-        Rect scaledScr = scale(scr);
-
-        android.graphics.Rect _src =  new android.graphics.Rect(scaledScr.getA().getX(), scaledScr.getA().getY(),
-                scaledScr.getB().getX(), scaledScr.getB().getY());
         android.graphics.Rect _clip = new android.graphics.Rect(clip.getA().getX(), clip.getA().getY(),
                                                                 clip.getB().getX(), clip.getB().getY());
 
+        android.graphics.Rect _src =  new android.graphics.Rect(scr.getX()+ (int)_crop[0],scr.getY()+ (int)_crop[1],
+                scr.getX()+  (int)_crop[0] + (int)((float)scr.getW() * _scale), scr.getY()+(int)_crop[1] + (int)((float)scr.getH() * _scale));
+
         _canvas.drawBitmap(((AndroidImage)img).getImg(), _clip, _src, _paint);
-    }
-
-    // devuelve una posicion y tamaño nuevos para el reescalado que haya
-    private Rect scale( Rect oldScr){
-
-        int newX = (int)(oldScr.getA().getX()*getRelationX());
-        int newY = (int)(oldScr.getA().getY()*getRelationY());
-        int newWidth = (int)(oldScr.getW() * getRelationX());
-        int newHeight = (int)(oldScr.getH()*getRelationY());
-
-        return new Rect(newX, newY, newWidth, newHeight);
     }
 
     // gets del tamaño de la pantalla
@@ -109,19 +101,27 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
         return _surfaceView.getHeight();
     }
 
-    // gets de la resolución o relación de aspecto
+
     @Override
-    public float getRelationX(){
-        return getWidth()/(float)refScaleX;
+    public float getScale() {  return _scale;  }
+
+    @Override
+    public void setScale(float scale) {
+
+        _scale = scale;
     }
     @Override
-    public float getRelationY(){
-        return getHeight()/(float)refScaleY;
+    public float[] getCrop() {
+        return _crop;
     }
+
     @Override
-    public int getResolutionRefX(){ return refScaleX; }
-    @Override
-    public int getResolutionRefY(){ return refScaleY; }
+    public void setCrop(float[] crop) {
+
+        _crop[0] = crop[0];
+        _crop[1] = crop[1];
+    }
+
 
     // llamadas hechas desde el run
     public boolean validSurface()
@@ -139,7 +139,6 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
     private SurfaceView _surfaceView;
     private Canvas _canvas;
     private Paint _paint;
-    //canvas lógico
-    private int refScaleX;
-    private int refScaleY;
+    private float _scale;
+    private float [] _crop;
 }
