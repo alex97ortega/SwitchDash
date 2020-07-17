@@ -35,8 +35,7 @@ public class GameOverState extends BaseGameState{
                 new Rect(x,y,img.getWidth(),img.getHeight()),
                         new Rect(0,0,img.getWidth(),img.getHeight()), 1.f);
         // score
-        img = _gm.getImage(GameManager.Images.SCOREFONT);
-        x = (int)(( _screen.getWidth() / 2) - ((87 * _graphics.getScale()) / 2));
+        x = (int)(( _screen.getWidth() / 2) - ((100 * _graphics.getScale()) / 2));
         y = (int)((_gm.gameOverPosY+600)*_graphics.getScale());
 
         _screen.drawScore(x,y,score);

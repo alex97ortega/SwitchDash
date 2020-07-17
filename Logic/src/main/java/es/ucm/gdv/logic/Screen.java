@@ -112,13 +112,13 @@ public class Screen {
     public void drawScore(int x, int y, int num){
         //suponemos que el score nunca va a pasar de 199
         if(num > 99){
-            drawNumber((int)(x-(120*_graphics.getScale())),y, num/100);
-            drawNumber((int)(x-(60*_graphics.getScale())),y, (num-100)/10);
-            drawNumber(x,y, num%10);
+            drawNumber((int)(x-(70*_graphics.getScale())),y, num/100);
+            drawNumber(x,y, (num-100)/10);
+            drawNumber((int)(x+(70*_graphics.getScale())),y, num%10);
         }
         else if(num > 9){
-            drawNumber((int)(x-(70*_graphics.getScale())),y, num/10);
-            drawNumber(x,y, num%10);
+            drawNumber((int)(x-(35*_graphics.getScale())),y, num/10);
+            drawNumber((int)(x+(35*_graphics.getScale())),y, num%10);
         }
         else
             drawNumber(x,y, num%10);

@@ -35,7 +35,7 @@ public class Ball {
     public void render(Game game, Screen screen){
         // para cambiar entre player blanco y negro
         int clipY = 0;
-        if(_y *game.getGraphics().getScale() < (-75*game.getGraphics().getScale()) || state == Player.Color.BLACK)
+        if(_y *game.getGraphics().getScale() < (-100*game.getGraphics().getScale()) || state == Player.Color.BLACK)
             clipY = _img.getHeight()/2;
 
         _x = (int)(( screen.getWidth() / 2) - (((_img.getWidth()/10) * game.getGraphics().getScale()) / 2));

@@ -68,7 +68,7 @@ public class GamePlayState extends BaseGameState {
             b.render(_game, _screen);
         }
 
-        int x = (int)( _screen.getWidth() - (130  * _graphics.getScale()));
+        int x = (int)( _screen.getWidth() - (170  * _graphics.getScale()));
         int y = (int)(_gm.infoPosY*_graphics.getScale());
         _screen.drawScore(x,y,score);
 
