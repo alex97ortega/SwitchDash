@@ -39,7 +39,7 @@ public abstract  class BaseGameState implements es.ucm.gdv.engine.GameState {
         if(!aux.isEmpty()){
             for (Input.TouchEvent t: aux ) {
                 if(t.type == Input.TouchEvent.Type.Pressed){
-                    onPress((int)t.x, (int)t.y);
+                    onPress((int)(t.x- _graphics.getCrop()[0]), (int)(t.y- _graphics.getCrop()[1]));
                 }
             }
         }

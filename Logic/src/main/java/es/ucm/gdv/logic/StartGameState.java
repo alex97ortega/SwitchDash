@@ -42,7 +42,7 @@ public class StartGameState extends BaseGameState {
         // buttons
         for (Button b:
              buttons) {
-            b.render(_game);
+            b.render(_game, _gm, _screen);
         }
     }
 

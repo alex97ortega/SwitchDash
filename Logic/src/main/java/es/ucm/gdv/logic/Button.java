@@ -15,14 +15,14 @@ public class Button {
         _height = _img.getHeight();
         position = pos;
 
-        if(position == Position.LEFT)
-            _x =30;
-        else
-            _x = gm.refScreenWidth-170;
-        _y = gm.infoPosY;
     }
 
-    public void render(Game game){
+    public void render(Game game,GameManager gm, Screen screen){
+        if(position == Position.LEFT)
+            _x =(int)( screen.getWidth() - (1040  * game.getGraphics().getScale()));
+        else
+            _x = (int)( screen.getWidth() - (185  * game.getGraphics().getScale()));
+        _y = (int)(gm.infoPosY*game.getGraphics().getScale());
 
         int cripX = _width * _type.ordinal();
         game.getGraphics().drawImage(_img,
@@ -31,14 +31,12 @@ public class Button {
     }
 
     // check position for clicks
-    // necesito saber el tamaño de la pantalla para saber
-    // el X  y el Y real, este X es para resolución estándar 1080x1920
 
     public boolean inside(int x, int y, Graphics graphics){
 
         boolean clicked = false;
 
-        if((x >= _x && y <= (_x + (_width * graphics.getScale())) && (y >= _y && y <= _y + (_height * graphics.getScale())))){
+        if((x >= _x && x <= (_x + (_width * graphics.getScale())) && (y >= _y && y <= _y + (_height * graphics.getScale())))){
 
             clicked = true;
         }
