@@ -47,8 +47,10 @@ public class SwitchDashPC {
     {
         // juego con ventana definida (mitad de alto y ancho de la referencia 1080x1920)
         SwitchDashPC switchDashPC = new SwitchDashPC("SwitchDash", 1080/2, 1920/2);
+
         // juego a pantalla completa
         //SwitchDashPC switchDashPC = new SwitchDashPC();
+
         if(!switchDashPC.init())
             return;
         switchDashPC.start();

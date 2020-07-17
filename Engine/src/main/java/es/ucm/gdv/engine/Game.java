@@ -11,4 +11,5 @@ public interface Game {
     void changeGameState();
     void pushGameState(GameState state);
     void popGameState();
+    void ExitGame();
 }

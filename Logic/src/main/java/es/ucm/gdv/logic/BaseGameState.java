@@ -38,8 +38,14 @@ public abstract  class BaseGameState implements es.ucm.gdv.engine.GameState {
 
         if(!aux.isEmpty()){
             for (Input.TouchEvent t: aux ) {
+                // input onPress, presionar el ratón o el Escape o hacer un touch
                 if(t.type == Input.TouchEvent.Type.Pressed){
                     onPress((int)(t.x- _graphics.getCrop()[0]), (int)(t.y- _graphics.getCrop()[1]));
+                }
+                // presionado boton ESC, salimos del juego (util para pantalla completa)
+                else if (t.type == Input.TouchEvent.Type.Exit)
+                {
+                    _game.ExitGame();
                 }
             }
         }

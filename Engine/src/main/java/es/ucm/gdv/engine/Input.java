@@ -12,7 +12,7 @@ public interface Input {
         }
         public float x;
         public float y;
-        public enum Type{Pressed, Released}
+        public enum Type{Pressed, Released, Exit}
         public Type type;
     }
     List<TouchEvent> getTouchEvents();

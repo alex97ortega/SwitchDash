@@ -161,7 +161,8 @@ public class Screen {
         Image fondo = _gm.getImage(GameManager.Images.WHITE);
 
 
-        _graphics.drawImage(fondo, new Rect(0, 0, (int)(_graphics.getWidth()/_graphics.getScale()), (int)(_graphics.getHeight()/_graphics.getScale())),
+        _graphics.drawImage(fondo, new Rect(-(int)(_graphics.getWidth()*_graphics.getScale()), 0,
+                        (int)(_graphics.getWidth()/_graphics.getScale())*2, (int)(_graphics.getHeight()/_graphics.getScale())),
                 new Rect(0, 0, fondo.getWidth(), fondo.getHeight()), alphaFlash);
     }
     public void doFlashEffect(){ alphaFlash = 1.f;}

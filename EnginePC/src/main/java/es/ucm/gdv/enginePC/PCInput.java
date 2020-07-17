@@ -61,8 +61,13 @@ public class PCInput implements es.ucm.gdv.engine.Input, MouseListener, KeyListe
     // devuelva el mismo evento que si se hubiera pulsado el ratón
     @Override
     synchronized public void keyPressed(KeyEvent keyEvent) {
+        // espacio para jugar y cambiar de color
         if(keyEvent.getKeyCode() == KeyEvent.VK_SPACE)
             events.add(new TouchEvent(TouchEvent.Type.Pressed, 0,0));
+
+        // escape para salir de la aplicacion
+        if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE)
+            events.add(new TouchEvent(TouchEvent.Type.Exit, 0,0));
     }
 
     @Override

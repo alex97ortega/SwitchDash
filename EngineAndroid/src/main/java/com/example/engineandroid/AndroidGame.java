@@ -91,6 +91,12 @@ public class AndroidGame implements Game,Runnable {
         } // while
     }
 
+    // salida de la aplicación
+    @Override
+    public void ExitGame() {
+        System.exit(0);
+    }
+
     // llamadas refereidas a la pila de estados
     @Override
     public GameState getGameState() {

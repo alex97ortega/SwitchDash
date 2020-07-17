@@ -16,8 +16,9 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         _graphics = new PCGraphics(jFrame);
         _input = new PCInput(jFrame);
         _soundManager = new PCSoundManager();
-        jFrame.setIgnoreRepaint(true);
-        jFrame.setVisible(true);
+        _jFrame = jFrame;
+        _jFrame.setIgnoreRepaint(true);
+        _jFrame.setVisible(true);
     }
     // Devuelve si se ha podido inicializar el graphics, por si acaso.
     public boolean init(){
@@ -82,6 +83,12 @@ public class PCGame implements es.ucm.gdv.engine.Game{
         } // while
     }
 
+    // salida de la aplicación
+    @Override
+    public void ExitGame() {
+        System.exit(0);
+    }
+
     // llamadas de la pila de estados
     @Override
     public GameState getGameState() {
@@ -113,5 +120,6 @@ public class PCGame implements es.ucm.gdv.engine.Game{
     private PCInput _input;
     private PCSoundManager _soundManager;
     private LinkedList<GameState> states;
+    private JFrame _jFrame;
 }
 
